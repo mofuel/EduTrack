@@ -1,4 +1,4 @@
-package com.EduTrack.EduTrack;
+package com.EduTrack;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
