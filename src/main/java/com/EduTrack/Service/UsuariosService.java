@@ -26,11 +26,11 @@ public class UsuariosService {
     }
 
 
-    public Optional<Usuarios> buscarPorId(Long id) {
+    public Optional<Usuarios> buscarPorId(String id) {
         return usuariosRepository.findById(id);
     }
 
-    public void eliminar(Long id) {
+    public void eliminar(String id) {
         usuariosRepository.deleteById(id);
     }
 

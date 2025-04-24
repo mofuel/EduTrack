@@ -30,14 +30,14 @@ public class UsuariosController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Usuarios> obtenerPorId(@PathVariable Long id) {
+    public ResponseEntity<Usuarios> obtenerPorId(@PathVariable String id) {
         return usuariosService.buscarPorId(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> eliminar(@PathVariable Long id) {
+    public ResponseEntity<Void> eliminar(@PathVariable String id) {
         usuariosService.eliminar(id);
         return ResponseEntity.noContent().build();
     }
