@@ -26,19 +26,16 @@ public class NotasService {
         this.usuariosRepository = usuariosRepository;
     }
 
-
     public ArrayList<Notas> obtenerNotas(){
         return (ArrayList<Notas>) notasRepository.findAll();
     }
 
     public Notas guardarNotaDesdeDTO(NotaDTO notaDTO) {
-        // Buscar al usuario por ID
         Optional<Usuarios> usuarioOpt = usuariosRepository.findById(notaDTO.getUsuarioId());
         if (usuarioOpt.isEmpty()) {
             throw new EntityNotFoundException("Usuario no encontrado con ID: " + notaDTO.getUsuarioId());
         }
 
-        // Crear entidad y asignación
         Notas nota = new Notas();
         nota.setEstudiante(usuarioOpt.get());
         nota.setCalificacion(notaDTO.getCalificacion());
@@ -56,24 +53,18 @@ public class NotasService {
         notasRepository.deleteById(id);
     }
 
-
     public Notas actualizarNota(Long id, Notas nuevaNota) {
-
         Optional<Notas> notaExistenteOpt = notasRepository.findById(id);
-
         if (notaExistenteOpt.isEmpty()) {
             throw new EntityNotFoundException("Nota no encontrada con ID: " + id);
         }
 
         Notas notaExistente = notaExistenteOpt.get();
-
-        // Actualizacion
         notaExistente.setCalificacion(nuevaNota.getCalificacion());
         notaExistente.setFecha(nuevaNota.getFecha());
         notaExistente.setComentario(nuevaNota.getComentario());
 
-        // Si el estudiante es diferente, actualizamos el estudiante
-        if (nuevaNota.getEstudiante() != null) {
+        if (nuevaNota.getEstudiante() != null && nuevaNota.getEstudiante().getId() != null) {
             Optional<Usuarios> usuarioOpt = usuariosRepository.findById(nuevaNota.getEstudiante().getId());
             if (usuarioOpt.isEmpty()) {
                 throw new EntityNotFoundException("Usuario no encontrado con ID: " + nuevaNota.getEstudiante().getId());
@@ -85,30 +76,30 @@ public class NotasService {
     }
 
 
-
     public List<Notas> obtenerNotasPorEstudianteId(String estudianteId) {
         return notasRepository.findByEstudianteId(estudianteId);
     }
 
     public Double obtenerPromedio(String estudianteId) {
-        List<Notas> notas = obtenerNotasPorEstudianteId(estudianteId);
+        List<Notas> notas = notasRepository.findByEstudianteId(estudianteId);
         if (notas.isEmpty()) {
             return 0.0;
         }
-        double suma = 0.0;
+
+        double suma = 0;
         for (Notas nota : notas) {
             suma += nota.getCalificacion();
         }
+
         return suma / notas.size();
     }
 
-
-    public List<Notas> obtenerNotasPorFecha(String estudianteId, Date fechaInicio, Date fechaFin) {
-        return notasRepository.findByEstudianteIdAndFechaBetween(estudianteId, fechaInicio, fechaFin);
+    public List<Notas> obtenerNotasPorFecha(String estudianteId, Date inicio, Date fin) {
+        return notasRepository.findByEstudianteIdAndFechaBetween(estudianteId, inicio, fin);
     }
 
-    //public List<Notas> obtenerNotasPorCurso(String estudianteId, String curso) {
-    //        return notasRepository.findByEstudianteIdAndCurso(estudianteId, curso);
-    //    }
+
+
+
 
 }

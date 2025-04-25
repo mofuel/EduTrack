@@ -17,6 +17,7 @@ public class Notas {
     @JoinColumn(name = "usuario_id", referencedColumnName = "id")
     Usuarios estudiante;
 
+
     //@ManyToOne
     //@JoinColumn(name = "curso_id", referencedColumnName = "id")
     //private Curso curso;
