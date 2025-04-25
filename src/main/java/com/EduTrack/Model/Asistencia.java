@@ -1,5 +1,6 @@
 package com.EduTrack.Model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
@@ -21,6 +22,7 @@ public class Asistencia {
     Curso curso;
 
     @OneToMany(mappedBy = "asistencia", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     List<AsistenciaDetalle> detalles;
 
     public Asistencia() {}

@@ -14,7 +14,9 @@ public class AsistenciaDetalleService {
     private final AsistenciaDetalleRepository asistenciaDetalleRepository;
 
     @Autowired
-    public AsistenciaDetalleService(AsistenciaDetalleRepository asistenciaDetalleRepository) {this.asistenciaDetalleRepository = asistenciaDetalleRepository;}
+    public AsistenciaDetalleService(AsistenciaDetalleRepository asistenciaDetalleRepository) {
+        this.asistenciaDetalleRepository = asistenciaDetalleRepository;
+    }
 
     public List<AsistenciaDetalle> obtenerDetallesPorAsistencia(Long asistenciaId) {
         return asistenciaDetalleRepository.findAll().stream()
@@ -24,7 +26,9 @@ public class AsistenciaDetalleService {
 
     public Optional<AsistenciaDetalle> obtenerPorId(Long id) {return asistenciaDetalleRepository.findById(id);}
 
-    public AsistenciaDetalle guardar(AsistenciaDetalle asistenciaDetalle) {return asistenciaDetalleRepository.save(asistenciaDetalle);}
+    public AsistenciaDetalle guardar(AsistenciaDetalle asistenciaDetalle) {
+        return asistenciaDetalleRepository.save(asistenciaDetalle);
+    }
 
     public void eliminar(Long id) {asistenciaDetalleRepository.deleteById(id);}
 }

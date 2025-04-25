@@ -1,5 +1,6 @@
 package com.EduTrack.Model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 @Entity
@@ -12,6 +13,7 @@ public class AsistenciaDetalle {
 
     @ManyToOne
     @JoinColumn(name = "asistencia_id", nullable = false)
+    @JsonBackReference
     Asistencia asistencia;
 
     @ManyToOne
