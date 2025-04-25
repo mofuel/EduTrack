@@ -26,10 +26,15 @@ public class AsistenciaController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Asistencia> obtenerPorId(@PathVariable Long id) {
+    public ResponseEntity<Asistencia> obtenerAsistenciaPorId(@PathVariable Long id) {
         Optional<Asistencia> asistencia = asistenciaService.obtenerPorId(id);
-        return asistencia.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
+        if (asistencia.isPresent()) {
+            return ResponseEntity.ok(asistencia.get());
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
+
 
     @PostMapping
     public Asistencia crear(@RequestBody Asistencia asistencia) {
