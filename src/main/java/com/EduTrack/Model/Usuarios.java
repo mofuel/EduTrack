@@ -2,6 +2,8 @@ package com.EduTrack.Model;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table (name = "usuarios")
 public class Usuarios {
@@ -30,6 +32,8 @@ public class Usuarios {
     @Column
     String contraseña;
 
+    @OneToMany(mappedBy = "estudiante", cascade = CascadeType.ALL)
+    private List<Notas> notas;
 
     //Constructor vacio
     public Usuarios() {}
