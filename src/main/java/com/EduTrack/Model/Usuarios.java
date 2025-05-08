@@ -33,7 +33,7 @@ public class Usuarios {
     String contraseña;
 
     @OneToMany(mappedBy = "estudiante", cascade = CascadeType.ALL)
-    private List<Notas> notas;
+    private List<Avance> avances;
 
     //Constructor vacio
     public Usuarios() {}
