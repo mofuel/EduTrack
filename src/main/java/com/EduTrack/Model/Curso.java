@@ -19,13 +19,13 @@ public class Curso {
     @JoinColumn(name = "docente_id")
     private Usuarios docente;
 
-    @ManyToMany
-    @JoinTable(
-            name = "curso_estudiantes",
-            joinColumns = @JoinColumn(name = "curso_id"),
-            inverseJoinColumns = @JoinColumn(name = "estudiante_id")
-    )
-    private List<Usuarios> estudiantes;
+//    @ManyToMany
+//    @JoinTable(
+//            name = "curso_estudiantes",
+//            joinColumns = @JoinColumn(name = "curso_id"),
+//            inverseJoinColumns = @JoinColumn(name = "estudiante_id")
+//    )
+//    private List<Usuarios> estudiantes;
 
     // Constructor vacío
     public Curso() {}
@@ -47,7 +47,7 @@ public class Curso {
 
     public void setDocente(Usuarios docente) {this.docente = docente;}
 
-    public List<Usuarios> getEstudiantes() {return estudiantes;}
-
-    public void setEstudiantes(List<Usuarios> estudiantes) {this.estudiantes = estudiantes;}
+//    public List<Usuarios> getEstudiantes() {return estudiantes;}
+//
+//    public void setEstudiantes(List<Usuarios> estudiantes) {this.estudiantes = estudiantes;}
 }
