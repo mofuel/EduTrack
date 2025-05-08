@@ -1,6 +1,5 @@
 package com.EduTrack.Service;
 
-import com.EduTrack.DTO.NotaDTO;
 import com.EduTrack.Model.Usuarios;
 import com.EduTrack.Repository.UsuariosRepository;
 import jakarta.persistence.EntityNotFoundException;

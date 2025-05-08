@@ -4,15 +4,16 @@ import jakarta.persistence.*;
 import java.util.List;
 
 @Entity
+@Table (name = "curso")
 public class Curso {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String nom_curso;
+    private String nombre;
 
-    private String descrip_curso;
+    private String descripcion;
 
     @ManyToOne
     @JoinColumn(name = "docente_id")
@@ -34,13 +35,13 @@ public class Curso {
 
     public void setId(Long id) {this.id = id;}
 
-    public String getNom_curso() {return nom_curso;}
+    public String getNombre() {return nombre;}
 
-    public void setNom_curso(String nom_curso) {this.nom_curso = nom_curso;}
+    public void setNombre(String nombre) {this.nombre = nombre;}
 
-    public String getDescrip_curso() {return descrip_curso;}
+    public String getDescripcion() {return descripcion;}
 
-    public void setDescrip_curso(String descrip_curso) {this.descrip_curso = descrip_curso;}
+    public void setDescripcion(String descripcion) {this.descripcion = descripcion;}
 
     public Usuarios getDocente() {return docente;}
 
