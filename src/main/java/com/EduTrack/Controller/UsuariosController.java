@@ -3,14 +3,11 @@ package com.EduTrack.Controller;
 import com.EduTrack.Model.Usuarios;
 import com.EduTrack.Service.UsuariosService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
 
 @RestController
 @RequestMapping("/api/usuarios")
@@ -19,27 +16,33 @@ public class UsuariosController {
     @Autowired
     private UsuariosService usuariosService;
 
+    // Obtener lista de usuarios
     @GetMapping
-    public List<Usuarios> obtenerTodos() {
+    public List<Usuarios> obtenerUsuarios() {
         return usuariosService.listarTodos();
     }
 
-    @PostMapping
-    public Usuarios crearUsuario(@RequestBody Usuarios usuario) {
+    // Obtener un usuario por su ID
+    @GetMapping("/{id}")
+    public Usuarios obtenerUsuarioPorId(@PathVariable String id) {
+        return usuariosService.buscarPorId(id).orElse(null);
+    }
+
+    // Guardar un nuevo usuario
+    @PostMapping("/guardar")
+    public Usuarios guardarUsuario(@RequestBody Usuarios usuario) {
         return usuariosService.guardar(usuario);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Usuarios> obtenerPorId(@PathVariable String id) {
-        return usuariosService.buscarPorId(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+    // Actualizar un usuario existente
+    @PutMapping("/actualizar/{id}")
+    public Usuarios actualizarUsuario(@PathVariable String id, @RequestBody Usuarios usuarioActualizado) {
+        return usuariosService.actualizar(id, usuarioActualizado);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> eliminar(@PathVariable String id) {
+    // Eliminar un usuario
+    @DeleteMapping("/eliminar/{id}")
+    public void eliminarUsuario(@PathVariable String id) {
         usuariosService.eliminar(id);
-        return ResponseEntity.noContent().build();
     }
-
 }
