@@ -1,7 +1,7 @@
-package com.EduTrack.Controller;
+package com.EduTrack.web.controller;
 
-import com.EduTrack.Model.Usuarios;
-import com.EduTrack.Service.UsuariosService;
+import com.EduTrack.persistance.entity.Usuarios;
+import com.EduTrack.domain.service.UsuariosService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

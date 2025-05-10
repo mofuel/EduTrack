@@ -1,7 +1,7 @@
-package com.EduTrack.Service;
+package com.EduTrack.domain.service;
 
-import com.EduTrack.Model.Usuarios;
-import com.EduTrack.Repository.UsuariosRepository;
+import com.EduTrack.persistance.entity.Usuarios;
+import com.EduTrack.domain.repository.UsuariosRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +15,7 @@ public class UsuariosService {
     private UsuariosRepository usuariosRepository;
 
     public List<Usuarios> listarTodos() {
-        return usuariosRepository.findAll();
+        return usuariosRepository.getAll();
     }
 
     public Usuarios guardar(Usuarios usuario) {
@@ -27,15 +27,20 @@ public class UsuariosService {
 
 
     public Optional<Usuarios> buscarPorId(String id) {
-        return usuariosRepository.findById(id);
+        return usuariosRepository.getById(id);
+    }
+
+    public Optional<Usuarios> buscarPorEmail(String email) {
+        return usuariosRepository.getByEmail(email);
     }
 
     public Usuarios actualizar(String id, Usuarios usuarioActualizado) {
-        Optional<Usuarios> usuarioExistente = usuariosRepository.findById(id);
+        Optional<Usuarios> usuarioExistente = usuariosRepository.getById(id);
 
         if (usuarioExistente.isPresent()) {
             Usuarios usuario = usuarioExistente.get();
-            // Aquí puedes actualizar los campos del usuario si es necesario
+
+            // Actualizamos campos
             usuario.setNombre(usuarioActualizado.getNombre());
             usuario.setApellido(usuarioActualizado.getApellido());
             usuario.setDni(usuarioActualizado.getDni());
@@ -44,22 +49,23 @@ public class UsuariosService {
             usuario.setRol(usuarioActualizado.getRol());
             usuario.setContraseña(usuarioActualizado.getContraseña());
 
-            return usuariosRepository.save(usuario);  // Actualiza el usuario
+            return usuariosRepository.save(usuario); // Guardamos cambios
         } else {
-            return null;  // Usuario no encontrado
+            return null; // Usuario no encontrado
         }
     }
 
 
 
+
     public void eliminar(String id) {
-        usuariosRepository.deleteById(id);
+        usuariosRepository.delete(id);
     }
 
 
     private String generarIdPersonalizado() {
-        long cantidadUsuarios = usuariosRepository.count() + 1;
-        return "U" + String.format("%04d", cantidadUsuarios); // Ej: U0001, U0002...
+        long cantidadUsuarios = usuariosRepository.getAll().size() + 1;
+        return "U" + String.format("%04d", cantidadUsuarios);
     }
 
 
