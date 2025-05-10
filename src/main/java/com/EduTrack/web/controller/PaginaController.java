@@ -1,4 +1,4 @@
-package com.EduTrack.Controller;
+package com.EduTrack.web.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

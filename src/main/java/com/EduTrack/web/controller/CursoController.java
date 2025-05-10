@@ -1,7 +1,7 @@
-package com.EduTrack.Controller;
+package com.EduTrack.web.controller;
 
-import com.EduTrack.Model.Curso;
-import com.EduTrack.Service.CursoService;
+import com.EduTrack.persistance.entity.Curso;
+import com.EduTrack.domain.service.CursoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -1,7 +1,7 @@
-package com.EduTrack.Service;
+package com.EduTrack.domain.service;
 
-import com.EduTrack.Model.Curso;
-import com.EduTrack.Repository.CursoRepository;
+import com.EduTrack.domain.repository.CursoRepository;
+import com.EduTrack.persistance.entity.Curso;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,25 +17,34 @@ public class CursoService {
 
     // Obtener todos los cursos
     public List<Curso> listarCursos() {
-        return cursoRepository.findAll();
+        return cursoRepository.getAll();
     }
 
     // Obtener un curso por su ID
     public Optional<Curso> obtenerCursoPorId(Long id) {
-        return cursoRepository.findById(id);
+        return cursoRepository.getById(id);
     }
+
 
     // Crear o actualizar un curso
     public Curso guardarCurso(Curso curso) {
         return cursoRepository.save(curso);
     }
 
+
+    public Curso actualizarCurso(Long id, Curso cursoActualizado) {
+        Optional<Curso> cursoExistente = cursoRepository.getById(id);
+        if (cursoExistente.isPresent()) {
+            cursoActualizado.setId(id);
+            return cursoRepository.save(cursoActualizado);
+        }
+        return null;
+    }
+
+
     // Eliminar un curso
     public void eliminarCurso(Long id) {
-        if (cursoRepository.existsById(id)) {
-            cursoRepository.deleteById(id);
-        } else {
-            throw new RuntimeException("Curso no encontrado con ID: " + id);
-        }
+        cursoRepository.delete(id);
     }
+
 }

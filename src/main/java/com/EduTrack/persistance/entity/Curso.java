@@ -1,4 +1,4 @@
-package com.EduTrack.Model;
+package com.EduTrack.persistance.entity;
 
 import jakarta.persistence.*;
 import java.util.List;
