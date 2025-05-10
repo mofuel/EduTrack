@@ -11,7 +11,7 @@ public class AvanceDTO {
     private Double progreso;
 
 
-    private Long estudianteId;
+    private String usuarioId;
 
     public Long getId() {return id;}
 
@@ -25,7 +25,8 @@ public class AvanceDTO {
 
     public void setProgreso(Double progreso) {this.progreso = progreso;}
 
-    public Long getEstudianteId() {return estudianteId;}
+    public String getUsuarioId() { return usuarioId; }
 
-    public void setEstudianteId(Long estudianteId) {this.estudianteId = estudianteId;}
+
+    public void setUsuarioId(String usuarioId) { this.usuarioId = usuarioId; }
 }

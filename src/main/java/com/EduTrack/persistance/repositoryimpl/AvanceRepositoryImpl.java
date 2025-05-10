@@ -16,11 +16,12 @@ public class AvanceRepositoryImpl implements AvanceRepository {
     private EntityManager entityManager;
 
     @Override
-    public List<Avance> findByUsuarioId(Long usuarioId) {
+    public List<Avance> findByUsuarioId(String usuarioId) {
         return entityManager.createQuery("SELECT a FROM Avance a WHERE a.estudiante.id = :usuarioId", Avance.class)
                 .setParameter("usuarioId", usuarioId)
                 .getResultList();
     }
+
 
     @Override
     @Transactional

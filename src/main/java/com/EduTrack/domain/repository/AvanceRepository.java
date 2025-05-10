@@ -4,6 +4,6 @@ import com.EduTrack.persistance.entity.Avance;
 import java.util.List;
 
 public interface AvanceRepository {
-    List<Avance> findByUsuarioId(Long usuarioId);
+    List<Avance> findByUsuarioId(String usuarioId);
     Avance save(Avance avance);
 }
