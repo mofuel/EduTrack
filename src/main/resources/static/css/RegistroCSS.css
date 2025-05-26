@@ -18,8 +18,9 @@ body {
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
   width: 100%;
-  max-width: 400px;
+  max-width: 700px; /* antes era 400px */
 }
+
 
 h2 {
   text-align: center;
@@ -111,4 +112,27 @@ h2 {
 .alert-success {
   background-color: #d4edda;
   color: #155724;
+}
+
+form#registroForm {
+  display: flex;
+  gap: 2rem; /* espacio entre columnas */
+  flex-wrap: wrap; /* para que sea responsive y baje si no cabe */
+}
+
+.form-column {
+  flex: 1; /* cada columna ocupa la mitad del espacio disponible */
+  min-width: 250px; /* ancho mínimo para responsividad */
+}
+
+
+#passwordRequisitos p {
+  font-size: 0.85rem; /* Texto un poco más pequeño */
+  display: flex;
+  align-items: center;
+  gap: 6px; /* Espacio entre símbolo y texto */
+}
+
+#passwordRequisitos p::before {
+  font-size: 1rem; /* Ajusta tamaño del símbolo (X o check) */
 }

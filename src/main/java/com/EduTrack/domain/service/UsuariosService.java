@@ -92,9 +92,31 @@ public class UsuariosService {
 
 
     private String generarIdPersonalizado() {
-        long cantidadUsuarios = usuariosRepository.getAll().size() + 1;
-        return "U" + String.format("%04d", cantidadUsuarios);
+        Optional<String> ultimoIdOpt = usuariosRepository.findLastId(); // o inyecta UsuariosRepositoryImpl
+
+        if (ultimoIdOpt.isPresent()) {
+            String ultimoId = ultimoIdOpt.get(); // ej. "U0012"
+            int numero = Integer.parseInt(ultimoId.substring(1));
+            numero++;
+            return "U" + String.format("%04d", numero);
+        } else {
+            return "U0001";
+        }
     }
+
+    public boolean existeEmail(String email) {
+        return usuariosRepository.getByEmail(email).isPresent();
+    }
+
+    public boolean existeDni(String dni) {
+        return usuariosRepository.getByDni(dni).isPresent(); // Si tienes este metodo en repo
+    }
+
+    public boolean existeTelefono(String telefono) {
+        return usuariosRepository.getByTelefono(telefono).isPresent();
+    }
+
+
 
 
 

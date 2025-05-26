@@ -43,13 +43,38 @@
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
             <h3>Recuperar contraseña</h3>
-            <form action="#" th:action="@{/recuperar}" method="post">
+            <form id="recuperarForm">
                 <label for="recoverEmail">Ingresa tu correo electrónico:</label>
                 <input type="email" id="recoverEmail" name="email" placeholder="Correo electrónico" required>
-                <button type="submit" class="btn">Enviar</button>
+                <div id="emailError" style="color:red; display:none;"></div>
+                <div id="emailSuccess" style="color:green; display:none;"></div>
+                <button type="submit" class="btn" id="enviarTokenBtn">Enviar</button>
+                <div id="cooldownMsg" style="color:gray; display:none;">Espera 30 segundos para enviar otro token.</div>
+            </form>
+
+        </div>
+    </div>
+
+
+
+    <!-- Modal Ingresar Token -->
+    <div id="modalToken" class="modal" style="display:none;">
+        <div class="modal-content">
+            <span class="close" onclick="closeTokenModal()">&times;</span>
+            <h3>Ingresa el token que recibiste</h3>
+            <form id="tokenForm">
+                <label>
+                    Letra:
+                    <input type="text" id="tokenLetra" name="tokenLetra" readonly style="width:30px; text-align:center;">
+                </label>
+                -
+                <input type="text" id="tokenNumeros" name="tokenNumeros" maxlength="4" pattern="\d{4}" placeholder="1234" required style="width:50px; text-align:center;">
+                <div id="tokenError" style="color:red; display:none;"></div>
+                <button type="submit" class="btn">Validar Token</button>
             </form>
         </div>
     </div>
+
 
 
 
