@@ -11,58 +11,73 @@
 <div class="container">
     <div class="form-section" id="registerForm">
         <h2>Registro</h2>
-        <form th:action="@{/registro}" th:object="${RegistroDTO}" method="post">
-            <div class="form-group">
-                <label for="nombre">Nombres</label>
-                <input type="text" th:field="*{nombre}" placeholder="Tu nombre" required />
+        <form id="registroForm" th:object="${RegistroDTO}">
+            <div class="form-column">
+                <!-- Primeros 4 campos -->
+                <div class="form-group">
+                    <label for="nombre">Nombres</label>
+                    <input type="text" th:field="*{nombre}" placeholder="Tu nombre" required />
+                </div>
+
+                <div class="form-group">
+                    <label for="apellido">Apellidos</label>
+                    <input type="text" th:field="*{apellido}" placeholder="Tu apellido" required />
+                </div>
+
+                <div class="form-group">
+                    <label for="dni">DNI</label>
+                    <input type="text" th:field="*{dni}" id="dni" placeholder="Tu DNI" required onblur="validarDni()" />
+                    <div id="dniError" style="color: red; font-size: 0.9em;"></div>
+                </div>
+
+                <div class="form-group">
+                    <label for="correoRegistro">Correo electrónico</label>
+                    <input type="email" th:field="*{email}" id="email" placeholder="Correo electrónico" required onblur="validarEmail()" />
+                    <div id="emailError" style="color: red; font-size: 0.9em;"></div>
+                </div>
             </div>
 
-            <div class="form-group">
-                <label for="apellido">Apellidos</label>
-                <input type="text" th:field="*{apellido}" placeholder="Tu apellido" required />
-            </div>
+            <div class="form-column">
+                <!-- Otros 4 campos -->
+                <div class="form-group">
+                    <label for="telefono">Teléfono</label>
+                    <input type="text" id="telefono" th:field="*{telefono}" placeholder="Tu teléfono" required onblur="validarTelefono()" />
+                    <div id="telefonoError" style="color: red; font-size: 0.9em;"></div>
+                </div>
 
-            <div class="form-group">
-                <label for="dni">DNI</label>
-                <input type="text" th:field="*{dni}" placeholder="Tu DNI" required />
-            </div>
+                <div class="form-group">
+                    <label for="rol">Rol</label>
+                    <select th:field="*{rol}" required>
+                        <option value="" disabled selected>Selecciona tu rol</option>
+                        <option value="estudiante">Estudiante</option>
+                        <option value="docente">Docente</option>
+                    </select>
+                </div>
 
-            <div class="form-group">
-                <label for="correoRegistro">Correo electrónico</label>
-                <input type="email" th:field="*{email}" placeholder="Correo electrónico" required />
-            </div>
+                <div class="form-group">
+                    <label for="passwordRegistro">Contraseña</label>
+                    <input type="password" id="passwordRegistro" th:field="*{password}" placeholder="Contraseña segura" required
+                           onfocus="mostrarRequisitos()" oninput="validarPassword()" />
+                    <div id="passwordRequisitos" style="display:none; margin-top: 10px;">
+                        <p id="longitud" style="color: red;">&#10060; La contraseña debe tener entre 6 y 12 caracteres</p>
+                        <p id="mayuscula" style="color: red;">&#10060; La contraseña debe tener al menos una mayúscula</p>
+                        <p id="especial" style="color: red;">&#10060; La contraseña debe tener al menos un carácter especial</p>
+                    </div>
+                </div>
 
-            <div class="form-group">
-                <label for="telefono">Telefono</label>
-                <input type="text" th:field="*{telefono}" placeholder="Tu telefono" required />
+                <div class="form-group">
+                    <label for="confirmPassword">Confirmar contraseña</label>
+                    <input type="password" th:field="*{confirmPassword}" placeholder="Repite tu contraseña" required />
+                </div>
             </div>
-
-            <div class="form-group">
-                <label for="rol">Rol</label>
-                <select th:field="*{rol}" required>
-                    <option value="" disabled selected>Selecciona tu rol</option>
-                    <option value="estudiante">Estudiante</option>
-                    <option value="docente">Docente</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label for="passwordRegistro">Contraseña</label>
-                <input type="password" th:field="*{password}" placeholder="Contraseña segura" required />
-            </div>
-
-            <div class="form-group">
-                <label for="confirmPassword">Confirmar contraseña</label>
-                <input type="password" th:field="*{confirmPassword}" placeholder="Repite tu contraseña" required />
-            </div>
-            <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="alert alert-danger"></div>
 
             <button type="submit" class="btn">Registrarse</button>
             <p>¿Ya tienes una cuenta? <a href="/login">Inicia sesión aquí</a></p>
         </form>
+
     </div>
 </div>
 
-
+<script th:src="@{/js/Registro.js}"></script>
 </body>
 </html>

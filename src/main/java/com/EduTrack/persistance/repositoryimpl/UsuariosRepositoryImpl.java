@@ -5,6 +5,7 @@ import com.EduTrack.domain.repository.UsuariosRepository;
 import com.EduTrack.persistance.crud.UsuariosCrudRepository;
 import com.EduTrack.persistance.entity.Usuarios;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -36,6 +37,16 @@ public class UsuariosRepositoryImpl implements UsuariosRepository {
     }
 
     @Override
+    public Optional<Usuarios> getByDni(String dni) {
+        return Optional.ofNullable(crud.findByDni(dni));
+    }
+
+    @Override
+    public Optional<Usuarios> getByTelefono(String telefono) {
+        return Optional.ofNullable(crud.findByTelefono(telefono));
+    }
+
+    @Override
     public Usuarios save(Usuarios usuario) {
         return crud.save(usuario);
     }
@@ -43,5 +54,14 @@ public class UsuariosRepositoryImpl implements UsuariosRepository {
     @Override
     public void delete(String id) {
         crud.deleteById(id);
+    }
+
+    // Metodo nuevo para obtener el último ID
+    public Optional<String> findLastId() {
+        List<String> ids = crud.findAllIdsDesc(PageRequest.of(0, 1));
+        if (ids.isEmpty()) {
+            return Optional.empty();
+        }
+        return Optional.of(ids.get(0));
     }
 }

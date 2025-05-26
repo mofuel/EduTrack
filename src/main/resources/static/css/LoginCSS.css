@@ -170,3 +170,69 @@
       box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
       outline: none;
     }
+
+
+
+    /* Inputs dentro del modal Recuperar Contraseña y modal Token */
+    #modalRecuperar input[type="email"],
+    #modalToken input[type="text"] {
+      width: 100%;
+      padding: 0.25rem;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      transition: border-color 0.3s, box-shadow 0.3s;
+      box-sizing: border-box;
+      text-align: center; /* Para tokenNumeros y tokenLetra */
+    }
+
+    #modalRecuperar input[type="email"]:focus,
+    #modalToken input[type="text"]:focus {
+      border-color: #007bff;
+      box-shadow: none !important;
+      outline: none;
+    }
+
+    /* Ajustes específicos para los inputs de token */
+    #modalToken #tokenLetra {
+      width: 5ch;
+      height: 35px;
+      text-align: center;
+      font-weight: bold;
+      background-color: white !important;  /* fondo blanco limpio */
+      cursor: not-allowed;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      box-shadow: none !important;   /* quita cualquier sombra */
+      -webkit-box-shadow: none !important;
+      border: 1px solid #ccc;
+    }
+
+
+    #modalToken #tokenNumeros {
+      width: 5.5ch;      /* espacio para 4 números, un poco extra */
+      height: 35px;
+      text-align: center;
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+
+    /* Botones */
+    #modalRecuperar .btn,
+    #modalToken .btn {
+      width: 100%;
+      padding: 0.75rem;
+      background: #007bff;
+      border: none;
+      color: white;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s;
+      margin-top: 1rem;
+    }
+
+    #modalRecuperar .btn:hover,
+    #modalToken .btn:hover {
+      background: #0056b3;
+    }

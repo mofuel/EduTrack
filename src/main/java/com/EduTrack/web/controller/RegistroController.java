@@ -2,45 +2,64 @@ package com.EduTrack.web.controller;
 
 
 import com.EduTrack.domain.dto.RegistroDTO;
-import com.EduTrack.domain.repository.UsuariosRepository;
 import com.EduTrack.domain.service.UsuariosService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
-@Controller
+import java.util.HashMap;
+import java.util.Map;
+
+@RestController
+@RequestMapping("/api/usuarios")
 public class RegistroController {
 
     @Autowired
     private UsuariosService usuarioService;
 
+    @GetMapping("/validar-email")
+    public ResponseEntity<Map<String, Boolean>> validarEmail(@RequestParam String email) {
+        boolean existe = usuarioService.existeEmail(email);
+        Map<String, Boolean> respuesta = new HashMap<>();
+        respuesta.put("existe", existe);
+        return ResponseEntity.ok(respuesta);
+    }
+
+
+    @GetMapping("/validar-dni")
+    public ResponseEntity<Map<String, Boolean>> validarDni(@RequestParam String dni) {
+        boolean existe = usuarioService.existeDni(dni);
+        Map<String, Boolean> respuesta = new HashMap<>();
+        respuesta.put("existe", existe);
+        return ResponseEntity.ok(respuesta);
+    }
+
+    @GetMapping("/validar-telefono")
+    public ResponseEntity<Map<String, Boolean>> validarTelefono(@RequestParam String telefono) {
+        boolean existe = usuarioService.existeTelefono(telefono);
+        Map<String, Boolean> respuesta = new HashMap<>();
+        respuesta.put("existe", existe);
+        return ResponseEntity.ok(respuesta);
+    }
+
+
+
+
+
     @PostMapping("/registro")
-    public String registrarUsuario(@ModelAttribute("registroDTO") @Valid RegistroDTO registroDTO,
-                                   BindingResult result, Model model) {
-
-        // Validación de contraseña y confirmación
+    public ResponseEntity<?> registrarUsuario(@RequestBody @Valid RegistroDTO registroDTO) {
         if (!registroDTO.getPassword().equals(registroDTO.getConfirmPassword())) {
-            result.rejectValue("confirmPassword", "error.confirmPassword", "Las contraseñas no coinciden");
-        }
-
-        if (result.hasErrors()) {
-            System.out.println("Errores de validación encontrados:");
-            result.getAllErrors().forEach(error -> System.out.println(error.toString()));
-            return "registro"; // nombre de la vista HTML
+            return ResponseEntity.badRequest().body("Las contraseñas no coinciden");
         }
 
         try {
             usuarioService.registrarUsuario(registroDTO);
-            System.out.println("Usuario registrado correctamente");
-            return "redirect:/login";
+            return ResponseEntity.ok("Usuario registrado correctamente");
         } catch (Exception e) {
-            System.out.println("Error al registrar el usuario: " + e.getMessage());
-            model.addAttribute("error", "Error al registrar el usuario");
-            return "registro";
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Error al registrar el usuario: " + e.getMessage());
         }
     }
 }

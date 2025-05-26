@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Cambiar Contraseña</title>
+    <link rel="stylesheet" th:href="@{/css/CambContraCSS.css}" />
+</head>
+<body>
+
+<div class="container-cambiar">
+    <h2>Cambiar Contraseña</h2>
+    <form id="cambiarForm" th:action="@{/auth/cambiar-password}" method="post">
+        <input type="password" id="passwordRegistro" name="nuevaPassword"
+               placeholder="Nueva contraseña" required
+               onfocus="mostrarRequisitos()" oninput="validarPassword()" />
+        <div id="passwordRequisitos" style="display:none; margin-top: 10px;">
+            <p id="longitud" style="color: red;">&#10060; La contraseña debe tener entre 6 y 12 caracteres</p>
+            <p id="mayuscula" style="color: red;">&#10060; La contraseña debe tener al menos una mayúscula</p>
+            <p id="especial" style="color: red;">&#10060; La contraseña debe tener al menos un carácter especial</p>
+        </div>
+        <input type="hidden" id="tokenInput" name="token">
+        <button type="submit">Cambiar</button>
+    </form>
+    <div id="mensaje" style="color:red;"></div>
+</div>
+
+
+<script th:src="@{/js/CambContra.js}"></script>
+
+</body>
+
+</html>
