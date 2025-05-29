@@ -16,7 +16,9 @@
 
 <div class="container mt-5">
     <h1 class="mb-4">Tabla de Datos</h1>
-
+    <button class="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#modalAgregar">
+        Agregar Usuario
+    </button>
     <!-- Tabla -->
     <table class="table table-bordered">
         <thead>
@@ -36,6 +38,77 @@
         </tbody>
     </table>
 
+</div>
+
+<!-- Modal de Agregar Usuario -->
+<div class="modal fade" id="modalAgregar" tabindex="-1" role="dialog" aria-labelledby="modalAgregarLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <form id="formAgregarUsuario">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalAgregarLabel">Agregar Nuevo Usuario</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body d-flex flex-wrap">
+                    <!-- Primera columna -->
+                    <div class="form-column col-6 pe-2">
+                        <div class="form-group mb-3">
+                            <label for="nombre">Nombres</label>
+                            <input type="text" class="form-control" id="nombre" required />
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="apellido">Apellidos</label>
+                            <input type="text" class="form-control" id="apellido" required />
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="dni">DNI</label>
+                            <input type="text" class="form-control" id="dni" required />
+                            <div id="dniError" class="text-danger small"></div>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="email">Correo electrónico</label>
+                            <input type="email" class="form-control" id="email" required />
+                            <div id="emailError" class="text-danger small"></div>
+                        </div>
+                    </div>
+
+                    <!-- Segunda columna -->
+                    <div class="form-column col-6 ps-2">
+                        <div class="form-group mb-3">
+                            <label for="telefono">Teléfono</label>
+                            <input type="text" class="form-control" id="telefono" required />
+                            <div id="telefonoError" class="text-danger small"></div>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="rol">Rol</label>
+                            <select class="form-control" id="rol" required>
+                                <option value="" disabled selected>Selecciona tu rol</option>
+                                <option value="estudiante">Estudiante</option>
+                                <option value="docente">Docente</option>
+                            </select>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="passwordRegistro">Contraseña</label>
+                            <input type="password" class="form-control" id="passwordRegistro" required />
+                            <div id="passwordRequisitos" class="small text-muted" style="display: none;">
+                                <p id="longitud" class="text-danger">&#10060; Entre 6 y 12 caracteres</p>
+                                <p id="mayuscula" class="text-danger">&#10060; Al menos una mayúscula</p>
+                                <p id="especial" class="text-danger">&#10060; Al menos un carácter especial</p>
+                            </div>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="confirmPassword">Confirmar contraseña</label>
+                            <input type="password" class="form-control" id="confirmPassword" required />
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Registrar</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
 
 <!-- Modal de Edición -->

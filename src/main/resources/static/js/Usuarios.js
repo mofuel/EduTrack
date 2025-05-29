@@ -1,6 +1,6 @@
 // Obtener la lista de usuarios desde la API y mostrarla en la tabla
 function cargarUsuarios() {
-    fetch('/api/usuarios')
+    fetch('/dash/usuarios')
         .then(response => response.json())
         .then(usuarios => {
             let tbody = document.getElementById('usuariosTableBody');
@@ -51,7 +51,7 @@ function abrirModalEditar(id, nombre, apellido, dni, email, telefono, rol) {
 // Función para eliminar un usuario
 function eliminarUsuario(id) {
     if (confirm('¿Estás seguro de que deseas eliminar este usuario?')) {
-        fetch(`/api/usuarios/eliminar/${id}`, {
+        fetch(`/dash/usuarios/eliminar/${id}`, {
             method: 'DELETE'
         })
         .then(response => {
@@ -93,7 +93,7 @@ document.addEventListener('DOMContentLoaded', function () {
             contraseña: "" // Si no se cambia la contraseña, se puede dejar como string vacío o null
         };
 
-        fetch(`/api/usuarios/actualizar/${id}`, {
+        fetch(`/dash/usuarios/actualizar/${id}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
@@ -116,3 +116,49 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 });
+
+document.getElementById('formAgregarUsuario').addEventListener('submit', function (event) {
+    event.preventDefault();
+
+    const nuevoUsuario = {
+        nombre: document.getElementById('nombre').value,
+        apellido: document.getElementById('apellido').value,
+        dni: document.getElementById('dni').value,
+        email: document.getElementById('email').value,
+        telefono: document.getElementById('telefono').value,
+        rol: document.getElementById('rol').value,
+        password: document.getElementById('passwordRegistro').value,
+        confirmPassword: document.getElementById('confirmPassword').value
+    };
+
+    const confirmarPassword = document.getElementById('confirmPassword').value;
+    if (nuevoUsuario.password !== confirmarPassword) {
+        alert("Las contraseñas no coinciden.");
+        return;
+    }
+
+
+    fetch('/api/usuarios/registro', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(nuevoUsuario)
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error("Error al registrar el usuario.");
+        }
+        return response.text();
+    })
+    .then(() => {
+        bootstrap.Modal.getInstance(document.getElementById('modalAgregar')).hide();
+        cargarUsuarios();
+        document.getElementById('formAgregarUsuario').reset();
+    })
+    .catch(error => {
+        console.error(error);
+        alert("No se pudo registrar el usuario.");
+    });
+});
+

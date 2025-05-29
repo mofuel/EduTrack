@@ -18,7 +18,7 @@ public class PaginaController {
     @Autowired
     private TokenService tokenService;
 
-    @GetMapping("/dashboard")
+    @GetMapping("/api/dashboard")
     public String mostrarDashboard(){
         return "dashboard";
     }
@@ -44,7 +44,7 @@ public class PaginaController {
     public String mostrarIndex(){return "index";}
 
     @GetMapping("/indexdocente")
-    public String mostrarIndexDocewnte(){return "indexdocente";}
+    public String mostrarIndexDocente(){return "indexdocente";}
 
     @GetMapping("/cambiarcontraseña")
     public String mostrarFormularioCambio(@RequestParam("token") String token, Model model) {
