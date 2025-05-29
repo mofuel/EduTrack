@@ -1,8 +1,10 @@
 package com.EduTrack.web.controller;
 
+import com.EduTrack.domain.dto.RegistroDTO;
 import com.EduTrack.persistance.entity.Usuarios;
 import com.EduTrack.domain.service.UsuariosService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -10,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/usuarios")
+@RequestMapping("/dash/usuarios")
 public class UsuariosController {
 
     @Autowired
@@ -28,11 +30,6 @@ public class UsuariosController {
         return usuariosService.buscarPorId(id).orElse(null);
     }
 
-    // Guardar un nuevo usuario
-    @PostMapping("/guardar")
-    public Usuarios guardarUsuario(@RequestBody Usuarios usuario) {
-        return usuariosService.guardar(usuario);
-    }
 
     // Actualizar un usuario existente
     @PutMapping("/actualizar/{id}")
