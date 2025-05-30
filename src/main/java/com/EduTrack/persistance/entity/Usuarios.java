@@ -71,4 +71,11 @@ public class Usuarios {
 
     public void setContraseña(String contraseña) {this.contraseña = contraseña;}
 
+    public List<Avance> getAvances() {
+        return avances;
+    }
+
+    public void setAvances(List<Avance> avances) {
+        this.avances = avances;
+    }
 }
