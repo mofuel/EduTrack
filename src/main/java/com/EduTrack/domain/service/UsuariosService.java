@@ -3,6 +3,7 @@ package com.EduTrack.domain.service;
 import com.EduTrack.domain.dto.RegistroDTO;
 import com.EduTrack.persistance.entity.Usuarios;
 import com.EduTrack.domain.repository.UsuariosRepository;
+import com.EduTrack.persistance.mapper.RegistroMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -19,6 +20,9 @@ public class UsuariosService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private RegistroMapper registroMapper;
+
     public List<Usuarios> listarTodos() {
         return usuariosRepository.getAll();
     }
@@ -32,14 +36,8 @@ public class UsuariosService {
 
 
     public void registrarUsuario(RegistroDTO dto) {
-        Usuarios usuario = new Usuarios();
-        usuario.setNombre(dto.getNombre());
-        usuario.setApellido(dto.getApellido());
-        usuario.setDni(dto.getDni());
-        usuario.setEmail(dto.getEmail());
-        usuario.setTelefono(dto.getTelefono());
+        Usuarios usuario = registroMapper.toUsuarioFromRegistroDTO(dto);
 
-        // Asegurar que el rol tenga el prefijo ROLE_
         String rol = dto.getRol().toLowerCase();
         if (!rol.startsWith("ROLE_")) {
             rol = "ROLE_" + rol;
@@ -52,6 +50,7 @@ public class UsuariosService {
 
         guardar(usuario);
     }
+
 
 
     public Optional<Usuarios> buscarPorId(String id) {
