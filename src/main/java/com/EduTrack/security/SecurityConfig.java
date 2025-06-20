@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.Customizer;
@@ -21,6 +22,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -40,9 +42,11 @@ public class SecurityConfig {
 
 
     private final LoginService loginService; // Tu UserDetailsService
+    private final JwtRequestFilter jwtRequestFilter;
 
-    public SecurityConfig(LoginService loginService) {
+    public SecurityConfig(LoginService loginService, JwtRequestFilter jwtRequestFilter) {
         this.loginService = loginService;
+        this.jwtRequestFilter = jwtRequestFilter;
     }
 
     @Bean
@@ -51,27 +55,15 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/index", "/contactanos", "/registro", "/nosotros", "/login", "/logout", "/api/usuarios/**", "/correo/enviar").permitAll()
-                        .requestMatchers("/auth/recuperar", "/auth/verificar", "/auth/cambiar-password", "/cambiarcontraseña", "/auth/login").permitAll()
+                        .requestMatchers("/auth/recuperar", "/auth/verificar", "/auth/cambiar-password", "/cambiarcontraseña", "/auth/**","/dash/**").permitAll()
                         .requestMatchers("/css/**", "/img/**", "/js/**", "/fragments/**").permitAll()
+                        .requestMatchers("/api/cursos/**").permitAll()
                         .anyRequest().authenticated()
-                )
-                // 👇👇 AÑADE ESTE BLOQUE para que Spring maneje el login personalizado
-                .formLogin(form -> form
-                        .loginPage("/login") // página por defecto (no importa si es React)
-                        .loginProcessingUrl("/auth/login") // intercepta POST a esta ruta
-                        .usernameParameter("email")
-                        .passwordParameter("password")
-                        .successHandler(customAuthenticationSuccessHandler)
-                        .failureHandler((request, response, exception) -> {
-                            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-                            response.getWriter().write("Credenciales inválidas");
-                        })
-                        .permitAll()
                 )
                 .authenticationProvider(daoAuthenticationProvider())
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
-                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED));
-
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
 

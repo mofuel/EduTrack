@@ -14,10 +14,11 @@ public class CursoService {
     @Autowired
     private CursoRepository cursoRepository;
 
-
-    // Obtener todos los cursos
+    // Obtener todos los cursos activos
     public List<Curso> listarCursos() {
-        return cursoRepository.getAll();
+        return cursoRepository.getAll().stream()
+                .filter(Curso::getActivo) // Solo cursos activos
+                .toList();
     }
 
     // Obtener un curso por su ID
@@ -25,13 +26,27 @@ public class CursoService {
         return cursoRepository.getById(id);
     }
 
+    // Obtener cursos por docente ID
+    public List<Curso> listarCursosPorDocente(String docenteId) {
+        return cursoRepository.getByDocenteId(docenteId);
+    }
 
-    // Crear o actualizar un curso
+    // Obtener cursos por estudiante ID
+    public List<Curso> listarCursosPorEstudiante(String estudianteId) {
+        return cursoRepository.getByEstudianteId(estudianteId);
+    }
+
+    // Buscar cursos por nombre
+    public List<Curso> buscarCursosPorNombre(String nombre) {
+        return cursoRepository.searchByNombre(nombre);
+    }
+
+    // Crear un nuevo curso
     public Curso guardarCurso(Curso curso) {
         return cursoRepository.save(curso);
     }
 
-
+    // Actualizar curso existente
     public Curso actualizarCurso(Long id, Curso cursoActualizado) {
         Optional<Curso> cursoExistente = cursoRepository.getById(id);
         if (cursoExistente.isPresent()) {
@@ -41,10 +56,15 @@ public class CursoService {
         return null;
     }
 
-
-    // Eliminar un curso
-    public void eliminarCurso(Long id) {
-        cursoRepository.delete(id);
+    // Eliminar un curso (soft delete)
+    public boolean eliminarCurso(Long id) {
+        Optional<Curso> cursoOpt = cursoRepository.getById(id);
+        if (cursoOpt.isPresent()) {
+            Curso curso = cursoOpt.get();
+            curso.setActivo(false); // 👈 Desactivar curso
+            cursoRepository.save(curso); // Guardar el cambio
+            return true;
+        }
+        return false;
     }
-
 }

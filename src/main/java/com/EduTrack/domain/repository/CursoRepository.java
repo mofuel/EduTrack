@@ -8,5 +8,16 @@ public interface CursoRepository {
     List<Curso> getAll();
     Optional<Curso> getById(Long id);
     Curso save(Curso curso);
-    void delete(Long id);
+
+    // Reemplazar delete con soft delete
+    void softDelete(Long id);
+
+    // Buscar solo cursos activos por docente
+    List<Curso> getByDocenteId(String docenteId);
+
+    // Buscar solo cursos activos por estudiante
+    List<Curso> getByEstudianteId(String estudianteId);
+
+    // Búsqueda solo en cursos activos
+    List<Curso> searchByNombre(String nombre);
 }
