@@ -17,12 +17,13 @@ public class CursoRepositoryImpl implements CursoRepository {
 
     @Override
     public List<Curso> getAll() {
-        return crud.findAll();
+        return crud.findByActivoTrue();
     }
 
     @Override
     public Optional<Curso> getById(Long id) {
-        return crud.findById(id);
+        return crud.findById(id)
+                .filter(Curso::getActivo);
     }
 
     @Override
@@ -31,7 +32,25 @@ public class CursoRepositoryImpl implements CursoRepository {
     }
 
     @Override
-    public void delete(Long id) {
-        crud.deleteById(id);
+    public void softDelete(Long id) {
+        crud.findById(id).ifPresent(curso -> {
+            curso.setActivo(false); // Lo pone como inactivo
+            crud.save(curso);
+        });
+    }
+
+    @Override
+    public List<Curso> getByDocenteId(String docenteId) {
+        return crud.findByDocente_IdAndActivoTrue(docenteId);
+    }
+
+    @Override
+    public List<Curso> getByEstudianteId(String estudianteId) {
+        return crud.findByEstudiantes_IdAndActivoTrue(estudianteId);
+    }
+
+    @Override
+    public List<Curso> searchByNombre(String nombre) {
+        return crud.findByNombreContainingIgnoreCaseAndActivoTrue(nombre);
     }
 }

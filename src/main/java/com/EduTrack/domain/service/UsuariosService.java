@@ -74,7 +74,11 @@ public class UsuariosService {
             usuario.setEmail(usuarioActualizado.getEmail());
             usuario.setTelefono(usuarioActualizado.getTelefono());
             usuario.setRol(usuarioActualizado.getRol());
-            usuario.setContraseña(usuarioActualizado.getContraseña());
+
+
+            if (usuarioActualizado.getContraseña() != null && !usuarioActualizado.getContraseña().isEmpty()) {
+                usuario.setContraseña(passwordEncoder.encode(usuarioActualizado.getContraseña()));
+            }
 
             return usuariosRepository.save(usuario); // Guardamos cambios
         } else {

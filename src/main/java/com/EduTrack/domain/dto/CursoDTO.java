@@ -1,5 +1,7 @@
 package com.EduTrack.domain.dto;
 
+import java.util.List;
+
 public class CursoDTO {
 
     private Long id;
@@ -15,6 +17,21 @@ public class CursoDTO {
 
 
     private String docenteNombre;
+
+    private Double precio;
+
+    private List<String> estudiantesIds;
+
+    private Boolean activo;
+
+    private String requisitos;
+
+    private String objetivos;
+
+    private String incluye;
+
+    private String imagen;
+
 
     public Long getId() {return id;}
 
@@ -35,4 +52,32 @@ public class CursoDTO {
     public String getDocenteNombre() {return docenteNombre;}
 
     public void setDocenteNombre(String docenteNombre) {this.docenteNombre = docenteNombre;}
+
+    public Double getPrecio() {return precio;}
+
+    public void setPrecio(Double precio) {this.precio = precio;}
+
+    public List<String> getEstudiantesIds() {return estudiantesIds;}
+
+    public void setEstudiantesIds(List<String> estudiantesIds) {this.estudiantesIds = estudiantesIds;}
+
+    public Boolean getActivo() {return activo;}
+
+    public void setActivo(Boolean activo) {this.activo = activo;}
+
+    public String getRequisitos() {return requisitos;}
+
+    public void setRequisitos(String requisitos) {this.requisitos = requisitos;}
+
+    public String getObjetivos() {return objetivos;}
+
+    public void setObjetivos(String objetivos) {this.objetivos = objetivos;}
+
+    public String getIncluye() {return incluye;}
+
+    public void setIncluye(String incluye) {this.incluye = incluye;}
+
+    public String getImagen() {return imagen;}
+
+    public void setImagen(String imagen) {this.imagen = imagen;}
 }
