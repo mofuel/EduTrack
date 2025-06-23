@@ -32,6 +32,8 @@ public class CursoDTO {
 
     private String imagen;
 
+    private Boolean disponibleParaCompra;
+
 
     public Long getId() {return id;}
 
@@ -80,4 +82,8 @@ public class CursoDTO {
     public String getImagen() {return imagen;}
 
     public void setImagen(String imagen) {this.imagen = imagen;}
+
+    public Boolean getDisponibleParaCompra() {return disponibleParaCompra;}
+
+    public void setDisponibleParaCompra(Boolean disponibleParaCompra) {this.disponibleParaCompra = disponibleParaCompra;}
 }

@@ -32,6 +32,9 @@ public class Curso {
     @Column(nullable = false)
     private Boolean activo = true;
 
+    @Column(name = "disponible_para_compra", nullable = false)
+    private Boolean disponibleParaCompra = false;
+
     @Column(columnDefinition = "TEXT")
     private String requisitos;
 
@@ -43,6 +46,7 @@ public class Curso {
 
     @Column(length = 500)
     private String imagen;
+
 
 
     // Constructor vacío
@@ -92,4 +96,8 @@ public class Curso {
     public String getImagen() {return imagen;}
 
     public void setImagen(String imagen) {this.imagen = imagen;}
+
+    public Boolean getDisponibleParaCompra() {return disponibleParaCompra;}
+
+    public void setDisponibleParaCompra(Boolean disponibleParaCompra) {this.disponibleParaCompra = disponibleParaCompra;}
 }

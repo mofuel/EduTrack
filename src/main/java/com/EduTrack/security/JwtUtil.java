@@ -1,5 +1,7 @@
 package com.EduTrack.security;
 
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
@@ -41,7 +43,22 @@ public class JwtUtil {
 
 
     public boolean validateToken(String token, UserDetails userDetails) {
-        final String username = extractUsername(token);
-        return username.equals(userDetails.getUsername());
+        try {
+            Claims claims = Jwts.parserBuilder()
+                    .setSigningKey(SECRET_KEY)
+                    .build()
+                    .parseClaimsJws(token)
+                    .getBody();
+
+            String username = claims.getSubject();
+            Date expiration = claims.getExpiration();
+
+            return username.equals(userDetails.getUsername()) && expiration.after(new Date());
+
+        } catch (JwtException | IllegalArgumentException e) {
+            System.out.println("❌ Token inválido: " + e.getMessage());
+            return false;
+        }
     }
+
 }

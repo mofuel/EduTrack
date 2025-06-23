@@ -127,4 +127,33 @@ public class CursoController {
         return authentication.getName(); // Este es el "subject" del JWT, usualmente el email
     }
 
+    // GET: Obtener todos los cursos disponibles para compra
+    @GetMapping("/disponibles")
+    public List<CursoDTO> obtenerCursosDisponiblesParaCompra() {
+        return cursoService.listarCursosDisponiblesParaCompra()
+                .stream()
+                .map(cursoMapper::toDTO)
+                .collect(Collectors.toList());
+    }
+
+    // GET: Buscar cursos disponibles por nombre
+    @GetMapping("/disponibles/buscar")
+    public List<CursoDTO> buscarCursosDisponiblesPorNombre(@RequestParam("nombre") String nombre) {
+        return cursoService.buscarCursosDisponiblesPorNombre(nombre)
+                .stream()
+                .map(cursoMapper::toDTO)
+                .collect(Collectors.toList());
+    }
+
+    // PATCH: Cambiar disponibilidad de compra
+    @PatchMapping("/{id}/disponibilidad")
+    public ResponseEntity<?> cambiarDisponibilidadCompra(@PathVariable Long id, @RequestParam boolean disponible) {
+        boolean actualizado = cursoService.actualizarDisponibilidadCompra(id, disponible);
+        if (actualizado) {
+            return ResponseEntity.ok("Disponibilidad de compra actualizada correctamente");
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Curso no encontrado");
+        }
+    }
+
 }

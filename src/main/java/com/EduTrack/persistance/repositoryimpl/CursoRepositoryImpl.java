@@ -53,4 +53,14 @@ public class CursoRepositoryImpl implements CursoRepository {
     public List<Curso> searchByNombre(String nombre) {
         return crud.findByNombreContainingIgnoreCaseAndActivoTrue(nombre);
     }
+
+    @Override
+    public List<Curso> getDisponiblesParaCompra() {
+        return crud.findByActivoTrueAndDisponibleParaCompraTrue();
+    }
+
+    @Override
+    public List<Curso> searchDisponiblesPorNombre(String nombre) {
+        return crud.findByNombreContainingIgnoreCaseAndActivoTrueAndDisponibleParaCompraTrue(nombre);
+    }
 }
