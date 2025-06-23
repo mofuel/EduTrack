@@ -16,7 +16,8 @@ public interface CursoMapper {
     @Mapping(source = "requisitos", target = "requisitos")
     @Mapping(source = "objetivos", target = "objetivos")
     @Mapping(source = "incluye", target = "incluye")
-    @Mapping(source = "imagen", target = "imagen") // <- NUEVO
+    @Mapping(source = "imagen", target = "imagen")
+    @Mapping(source = "disponibleParaCompra", target = "disponibleParaCompra") // ✅ NUEVO
     @Mapping(target = "estudiantesIds", expression = "java(curso.getEstudiantes() != null ? curso.getEstudiantes().stream().map(Usuarios::getId).toList() : null)")
     CursoDTO toDTO(Curso curso);
 
@@ -24,7 +25,8 @@ public interface CursoMapper {
     @Mapping(source = "requisitos", target = "requisitos")
     @Mapping(source = "objetivos", target = "objetivos")
     @Mapping(source = "incluye", target = "incluye")
-    @Mapping(source = "imagen", target = "imagen") // <- NUEVO
+    @Mapping(source = "imagen", target = "imagen")
+    @Mapping(source = "disponibleParaCompra", target = "disponibleParaCompra") // ✅ NUEVO
     Curso toEntity(CursoDTO dto, @Context Usuarios docente, @Context List<Usuarios> estudiantes);
 
     @AfterMapping
@@ -40,6 +42,7 @@ public interface CursoMapper {
     @Mapping(source = "requisitos", target = "requisitos")
     @Mapping(source = "objetivos", target = "objetivos")
     @Mapping(source = "incluye", target = "incluye")
-    @Mapping(source = "imagen", target = "imagen") // <- NUEVO
+    @Mapping(source = "imagen", target = "imagen")
+    @Mapping(source = "disponibleParaCompra", target = "disponibleParaCompra") // ✅ NUEVO
     void updateEntityFromDTO(CursoDTO dto, @MappingTarget Curso curso);
 }

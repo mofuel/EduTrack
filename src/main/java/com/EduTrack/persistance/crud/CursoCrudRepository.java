@@ -21,4 +21,12 @@ public interface CursoCrudRepository extends JpaRepository<Curso, Long> {
     List<Curso> findByEstudiantes_IdAndActivoTrue(String estudianteId);
     List<Curso> findByNombreContainingIgnoreCaseAndActivoTrue(String nombre);
     List<Curso> findByActivoTrue();
+
+    // Cursos activos y disponibles para compra (catálogo público)
+    List<Curso> findByActivoTrueAndDisponibleParaCompraTrue();
+
+    // Buscar por nombre, solo cursos activos y disponibles para compra
+    List<Curso> findByNombreContainingIgnoreCaseAndActivoTrueAndDisponibleParaCompraTrue(String nombre);
+
+
 }

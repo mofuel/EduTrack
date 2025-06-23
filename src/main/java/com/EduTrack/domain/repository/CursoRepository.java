@@ -20,4 +20,11 @@ public interface CursoRepository {
 
     // Búsqueda solo en cursos activos
     List<Curso> searchByNombre(String nombre);
+
+    // Obtener cursos activos y disponibles para compra
+    List<Curso> getDisponiblesParaCompra();
+
+    // Búsqueda por nombre solo en cursos activos y disponibles
+    List<Curso> searchDisponiblesPorNombre(String nombre);
+
 }

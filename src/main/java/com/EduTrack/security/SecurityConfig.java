@@ -57,7 +57,7 @@ public class SecurityConfig {
                         .requestMatchers("/index", "/contactanos", "/registro", "/nosotros", "/login", "/logout", "/api/usuarios/**", "/correo/enviar").permitAll()
                         .requestMatchers("/auth/recuperar", "/auth/verificar", "/auth/cambiar-password", "/cambiarcontraseña", "/auth/**","/dash/**").permitAll()
                         .requestMatchers("/css/**", "/img/**", "/js/**", "/fragments/**").permitAll()
-                        .requestMatchers("/api/cursos/**").permitAll()
+                        .requestMatchers("/api/cursos/**", "/api/carrito/**","/api/cursos-comprados/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .authenticationProvider(daoAuthenticationProvider())
@@ -92,7 +92,7 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(List.of("http://localhost:5173"));
-        configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(List.of("*"));
         configuration.setAllowCredentials(true);
 

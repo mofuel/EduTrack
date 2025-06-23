@@ -67,4 +67,26 @@ public class CursoService {
         }
         return false;
     }
+
+    // Listar cursos activos y disponibles para compra
+    public List<Curso> listarCursosDisponiblesParaCompra() {
+        return cursoRepository.getDisponiblesParaCompra();
+    }
+
+    // Buscar cursos disponibles para compra por nombre
+    public List<Curso> buscarCursosDisponiblesPorNombre(String nombre) {
+        return cursoRepository.searchDisponiblesPorNombre(nombre);
+    }
+
+    public boolean actualizarDisponibilidadCompra(Long cursoId, boolean disponible) {
+        Optional<Curso> cursoOpt = cursoRepository.getById(cursoId);
+        if (cursoOpt.isPresent()) {
+            Curso curso = cursoOpt.get();
+            curso.setDisponibleParaCompra(disponible);
+            cursoRepository.save(curso);
+            return true;
+        }
+        return false;
+    }
+
 }
