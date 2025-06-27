@@ -23,6 +23,13 @@ public class JwtUtil {
         Map<String, Object> claims = new HashMap<>();
         claims.put("userId", userId);  // 👈 Añadimos el ID del usuario
 
+        String rol = userDetails.getAuthorities().stream()
+                .findFirst()
+                .map(Object::toString)
+                .orElse("ROLE_estudiante"); // Por defecto
+
+        claims.put("rol", rol);
+
         return Jwts.builder()
                 .setClaims(claims)
                 .setSubject(userDetails.getUsername()) // sigue siendo el email
