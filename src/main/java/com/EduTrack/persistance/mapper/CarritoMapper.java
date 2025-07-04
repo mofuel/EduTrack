@@ -14,6 +14,7 @@ public interface CarritoMapper {
     @Mapping(source = "curso.nombre", target = "nombreCurso")
     @Mapping(source = "curso.precio", target = "precio")
     @Mapping(source = "curso.imagen", target = "imagen")
+    @Mapping(source = "curso.docente.nombre", target = "docenteNombre")
     CarritoDTO toDTO(Carrito carrito);
 
     List<CarritoDTO> toDTOList(List<Carrito> carritoList);

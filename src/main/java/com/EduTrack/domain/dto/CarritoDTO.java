@@ -10,6 +10,7 @@ public class CarritoDTO {
     private Double precio;
     private String imagen;
     private LocalDateTime fechaAgregado;
+    private String docenteNombre;
 
     //Getters y Setters
 
@@ -40,4 +41,12 @@ public class CarritoDTO {
     public LocalDateTime getFechaAgregado() {return fechaAgregado;}
 
     public void setFechaAgregado(LocalDateTime fechaAgregado) {this.fechaAgregado = fechaAgregado;}
+
+    public String getDocenteNombre() {
+        return docenteNombre;
+    }
+
+    public void setDocenteNombre(String docenteNombre) {
+        this.docenteNombre = docenteNombre;
+    }
 }

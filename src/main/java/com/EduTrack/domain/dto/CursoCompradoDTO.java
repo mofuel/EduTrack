@@ -10,6 +10,7 @@ public class CursoCompradoDTO {
     private Double precio;
     private String imagen;
     private LocalDateTime fechaCompra;
+    private String docenteNombre;
 
     //Getters y Setters
 
@@ -41,4 +42,9 @@ public class CursoCompradoDTO {
     public LocalDateTime getFechaCompra() {return fechaCompra;}
 
     public void setFechaCompra(LocalDateTime fechaCompra) {this.fechaCompra = fechaCompra;}
+
+    public String getDocenteNombre() {return docenteNombre;}
+
+    public void setDocenteNombre(String docenteNombre) {this.docenteNombre = docenteNombre;}
+
 }
