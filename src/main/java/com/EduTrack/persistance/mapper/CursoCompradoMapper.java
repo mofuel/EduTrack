@@ -14,6 +14,7 @@ public interface CursoCompradoMapper {
     @Mapping(source = "curso.nombre", target = "nombreCurso")
     @Mapping(source = "curso.precio", target = "precio")
     @Mapping(source = "curso.imagen", target = "imagen")
+    @Mapping(source = "curso.docente.nombre", target = "docenteNombre")
     CursoCompradoDTO toDTO(CursoComprado cursoComprado);
 
     List<CursoCompradoDTO> toDTOList(List<CursoComprado> lista);

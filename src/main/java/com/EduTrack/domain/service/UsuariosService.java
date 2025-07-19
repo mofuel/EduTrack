@@ -58,6 +58,7 @@ public class UsuariosService {
     }
 
     public Optional<Usuarios> buscarPorEmail(String email) {
+
         return usuariosRepository.getByEmail(email);
     }
 
