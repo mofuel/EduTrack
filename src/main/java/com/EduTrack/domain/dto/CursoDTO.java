@@ -34,6 +34,8 @@ public class CursoDTO {
 
     private Boolean disponibleParaCompra;
 
+    private Double porcentajeAvance;
+
 
     public Long getId() {return id;}
 
@@ -86,4 +88,8 @@ public class CursoDTO {
     public Boolean getDisponibleParaCompra() {return disponibleParaCompra;}
 
     public void setDisponibleParaCompra(Boolean disponibleParaCompra) {this.disponibleParaCompra = disponibleParaCompra;}
+
+    public Double getPorcentajeAvance() {return porcentajeAvance;}
+
+    public void setPorcentajeAvance(Double porcentajeAvance) {this.porcentajeAvance = porcentajeAvance;}
 }
