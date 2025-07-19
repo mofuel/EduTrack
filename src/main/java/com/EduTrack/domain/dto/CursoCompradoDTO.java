@@ -46,4 +46,5 @@ public class CursoCompradoDTO {
     public String getDocenteNombre() {return docenteNombre;}
 
     public void setDocenteNombre(String docenteNombre) {this.docenteNombre = docenteNombre;}
+
 }
