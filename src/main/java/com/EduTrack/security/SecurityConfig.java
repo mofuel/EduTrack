@@ -58,6 +58,12 @@ public class SecurityConfig {
                         .requestMatchers("/auth/recuperar", "/auth/verificar", "/auth/cambiar-password", "/cambiarcontraseña", "/auth/**","/dash/**").permitAll()
                         .requestMatchers("/css/**", "/img/**", "/js/**", "/fragments/**").permitAll()
                         .requestMatchers("/api/cursos/**", "/api/carrito/**","/api/cursos-comprados/**", "/api/certificados/**").permitAll()
+                        .requestMatchers("/v3/api-docs/**",
+                                "/swagger-ui.html",
+                                "/swagger-ui/**",
+                                "/swagger-resources/**",
+                                "/webjars/**"
+                        ).permitAll()
                         .requestMatchers("/api/progreso/**").hasAuthority("ROLE_estudiante")
                         .anyRequest().authenticated()
                 )
