@@ -84,12 +84,12 @@
 			<version>1.6.3</version>
 		</dependency>
 
-<!--		<dependency>-->
-<!--			<groupId>org.mapstruct</groupId>-->
-<!--			<artifactId>mapstruct-processor</artifactId>-->
-<!--			<version>1.6.3</version> &lt;!&ndash; misma versión que mapstruct &ndash;&gt;-->
-<!--			<scope>provided</scope>-->
-<!--		</dependency>-->
+		<dependency>
+			<groupId>org.mapstruct</groupId>
+			<artifactId>mapstruct-processor</artifactId>
+			<version>1.6.3</version>
+			<scope>provided</scope>
+		</dependency>
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -131,6 +131,11 @@
 			<artifactId>itextpdf</artifactId>
 			<version>5.5.13.3</version>
 		</dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
+        </dependency>
 
 		<dependency>
 			<groupId>org.projectlombok</groupId>
@@ -152,17 +157,10 @@
 		</dependency>
 
 
-
-
-	</dependencies>
+    </dependencies>
 
 	<build>
 		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
-
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -171,6 +169,11 @@
 					<source>17</source>
 					<target>17</target>
 					<annotationProcessorPaths>
+						<path>
+							<groupId>org.projectlombok</groupId>
+							<artifactId>lombok</artifactId>
+							<version>1.18.30</version>
+						</path>
 						<path>
 							<groupId>org.mapstruct</groupId>
 							<artifactId>mapstruct-processor</artifactId>

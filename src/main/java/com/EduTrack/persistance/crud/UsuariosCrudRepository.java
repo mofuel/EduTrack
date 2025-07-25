@@ -4,6 +4,7 @@ import com.EduTrack.persistance.entity.Usuarios;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import java.util.Optional;
 
 import java.util.List;
 
@@ -17,5 +18,6 @@ public interface UsuariosCrudRepository extends CrudRepository<Usuarios, String>
 
     @Query("SELECT u.id FROM Usuarios u ORDER BY u.id DESC")
     List<String> findAllIdsDesc(Pageable pageable);
+
 
 }
