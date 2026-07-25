@@ -6,6 +6,7 @@ import com.EduTrack.persistence.entity.Curso;
 import com.EduTrack.persistence.entity.CursoComprado;
 import com.EduTrack.persistence.entity.Pago;
 import com.EduTrack.persistence.entity.Usuarios;
+import com.EduTrack.persistence.entity.EstadoPago;
 import com.EduTrack.persistence.mapper.PagoMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -55,7 +56,7 @@ public class PagoService {
         pago.setMetodoPago(dto.getMetodoPago());
         pago.setReferenciaPago(dto.getReferenciaPago());
         pago.setFechaPago(LocalDateTime.now());
-
+        pago.setEstado(EstadoPago.COMPLETADO);
         Pago guardado = pagoRepository.save(pago);
 
         carritoRepository.deleteByUsuarioIdAndCursoId(dto.getUsuarioId(), dto.getCursoId());

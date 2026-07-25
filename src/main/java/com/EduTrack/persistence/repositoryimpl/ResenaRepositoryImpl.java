@@ -31,19 +31,16 @@ public class ResenaRepositoryImpl implements IResenaRepository {
     private CursoCrudRepository cursoCrudRepository;
 
     @Override
-    public void guardar(ResenaDTO dto, Long idCurso, Long idUsuario) {
+    public ResenaDTO guardar(ResenaDTO dto, Long idCurso, Long idUsuario) {
         Resena resena = mapper.toResena(dto);
-
         Curso curso = cursoCrudRepository.findById(idCurso)
                 .orElseThrow(() -> new RuntimeException("Curso no encontrado"));
-
         Usuarios usuario = usuarioCrudRepository.findById(idUsuario)
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
-
         resena.setCurso(curso);
         resena.setUsuarios(usuario);
-
         crud.save(resena);
+        return mapper.toResenaDTO(resena);
     }
 
     @Override
