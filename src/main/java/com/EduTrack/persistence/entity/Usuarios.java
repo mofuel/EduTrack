@@ -42,9 +42,6 @@ public class Usuarios {
 
     private boolean cuentaBloqueada = false;
 
-    public enum RolUsuario {
-        ROLE_admin, ROLE_docente, ROLE_estudiante
-    }
 
 
 

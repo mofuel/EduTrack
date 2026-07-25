@@ -63,6 +63,6 @@ public class ProgresoCurso {
     public void setFechaInicio(LocalDateTime fechaInicio) { this.fechaInicio = fechaInicio; }
 
     public LocalDateTime getFechaCompletado() { return fechaCompletado; }
-    
+
     public void setFechaCompletado(LocalDateTime fechaCompletado) { this.fechaCompletado = fechaCompletado; }
 }

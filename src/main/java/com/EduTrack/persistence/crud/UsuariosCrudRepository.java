@@ -7,7 +7,7 @@ import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
 
-public interface UsuariosCrudRepository extends CrudRepository<Usuarios, String> {
+public interface UsuariosCrudRepository extends CrudRepository<Usuarios, Long> {
 
     Usuarios findByEmail(String email);
 
@@ -16,6 +16,6 @@ public interface UsuariosCrudRepository extends CrudRepository<Usuarios, String>
     Usuarios findByTelefono(String telefono);
 
     @Query("SELECT u.id FROM Usuarios u ORDER BY u.id DESC")
-    List<String> findAllIdsDesc(Pageable pageable);
+    List<Long> findAllIdsDesc(Pageable pageable);
 
 }

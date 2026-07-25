@@ -3,7 +3,8 @@ package com.EduTrack.persistence.entity;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
-import java.util.List;
+import java.time.LocalDateTime;
+
 
 @Entity
 @Table (name = "curso")
@@ -20,8 +21,6 @@ public class Curso {
     @ManyToOne
     @JoinColumn(name = "docente_id")
     private Usuarios docente;
-
-
 
     private Double precio;
 
