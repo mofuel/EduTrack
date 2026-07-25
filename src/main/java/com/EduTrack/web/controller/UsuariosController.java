@@ -22,20 +22,20 @@ public class UsuariosController {
 
     // Obtener un usuario por su ID
     @GetMapping("/{id}")
-    public Usuarios obtenerUsuarioPorId(@PathVariable String id) {
+    public Usuarios obtenerUsuarioPorId(@PathVariable Long id) {
         return usuariosService.buscarPorId(id).orElse(null);
     }
 
 
     // Actualizar un usuario existente
     @PutMapping("/actualizar/{id}")
-    public Usuarios actualizarUsuario(@PathVariable String id, @RequestBody Usuarios usuarioActualizado) {
+    public Usuarios actualizarUsuario(@PathVariable Long id, @RequestBody Usuarios usuarioActualizado) {
         return usuariosService.actualizar(id, usuarioActualizado);
     }
 
     // Eliminar un usuario
     @DeleteMapping("/eliminar/{id}")
-    public void eliminarUsuario(@PathVariable String id) {
+    public void eliminarUsuario(@PathVariable Long id) {
         usuariosService.eliminar(id);
     }
 }

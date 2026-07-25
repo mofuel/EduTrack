@@ -27,7 +27,7 @@ public class PagoController {
     // GET: Verificar si ya fue pagado un curso por un usuario
     @GetMapping("/existe")
     public ResponseEntity<Boolean> yaFuePagado(
-            @RequestParam String usuarioId,
+            @RequestParam Long usuarioId,
             @RequestParam Long cursoId) {
         boolean existe = pagoService.yaFuePagado(usuarioId, cursoId);
         return ResponseEntity.ok(existe);
@@ -35,7 +35,7 @@ public class PagoController {
 
     // GET: Listar todos los pagos de un usuario
     @GetMapping("/usuario/{usuarioId}")
-    public ResponseEntity<List<PagoDTO>> listarPorUsuario(@PathVariable String usuarioId) {
+    public ResponseEntity<List<PagoDTO>> listarPorUsuario(@PathVariable Long usuarioId) {
         return ResponseEntity.ok(pagoService.listarPagosPorUsuario(usuarioId));
     }
 

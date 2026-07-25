@@ -24,7 +24,7 @@ public class CarritoController {
     private UsuariosRepository usuarioRepository;
 
     @GetMapping("/{usuarioId}")
-    public ResponseEntity<List<CarritoDTO>> listarCarrito(@PathVariable String usuarioId) {
+    public ResponseEntity<List<CarritoDTO>> listarCarrito(@PathVariable Long usuarioId) {
         return ResponseEntity.ok(carritoService.listarCarritoPorUsuario(usuarioId));
     }
 
@@ -52,7 +52,7 @@ public class CarritoController {
 
     @GetMapping("/existe")
     public ResponseEntity<Boolean> existeCurso(
-            @RequestParam String usuarioId,
+            @RequestParam Long usuarioId,
             @RequestParam Long cursoId) {
         boolean existe = carritoService.estaCursoEnCarrito(usuarioId, cursoId);
         return ResponseEntity.ok(existe);

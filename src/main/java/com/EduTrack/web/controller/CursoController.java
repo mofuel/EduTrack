@@ -60,17 +60,9 @@ public class CursoController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Docente no encontrado");
         }
 
-        // Obtener los estudiantes por sus IDs (si los hay)
-        List<Usuarios> estudiantes = dto.getEstudiantesIds() != null
-                ? dto.getEstudiantesIds().stream()
-                .map(usuarioRepository::getById)
-                .filter(Optional::isPresent)
-                .map(Optional::get)
-                .collect(Collectors.toList())
-                : List.of();
 
         // Crear y guardar el curso
-        Curso curso = cursoMapper.toEntity(dto, docente.get(), estudiantes);
+        Curso curso = cursoMapper.toEntity(dto, docente.get());
         Curso cursoGuardado = cursoService.guardarCurso(curso);
         CursoDTO resultado = cursoMapper.toDTO(cursoGuardado);
 
@@ -106,7 +98,7 @@ public class CursoController {
 
     // GET: Obtener cursos por ID de docente
     @GetMapping("/docente/{docenteId}")
-    public List<CursoDTO> obtenerPorDocente(@PathVariable String docenteId) {
+    public List<CursoDTO> obtenerPorDocente(@PathVariable Long docenteId) {
         return cursoService.listarCursosPorDocente(docenteId)
                 .stream()
                 .map(cursoMapper::toDTO)
@@ -115,7 +107,7 @@ public class CursoController {
 
     // GET: Obtener cursos por ID de estudiante
     @GetMapping("/estudiante/{estudianteId}")
-    public List<CursoDTO> obtenerPorEstudiante(@PathVariable String estudianteId) {
+    public List<CursoDTO> obtenerPorEstudiante(@PathVariable Long estudianteId) {
         return cursoService.listarCursosPorEstudiante(estudianteId)
                 .stream()
                 .map(cursoMapper::toDTO)

@@ -25,14 +25,14 @@ public class ProgresoContenidoController {
 
     // Obtener el progreso de un usuario por su ID
     @GetMapping("/usuario/{usuarioId}")
-    public ResponseEntity<List<ProgresoContenidoDTO>> obtenerPorUsuario(@PathVariable String usuarioId) {
+    public ResponseEntity<List<ProgresoContenidoDTO>> obtenerPorUsuario(@PathVariable Long usuarioId) {
         return ResponseEntity.ok(progresoService.obtenerProgresosPorUsuario(usuarioId));
     }
 
     // Verifica si ya se visualizó un contenido
     @GetMapping("/existe")
     public ResponseEntity<Boolean> existeVisualizacion(
-            @RequestParam String usuarioId,
+            @RequestParam Long usuarioId,
             @RequestParam Long contenidoId
     ) {
         boolean existe = progresoService.existeProgreso(usuarioId, contenidoId);
@@ -47,7 +47,7 @@ public class ProgresoContenidoController {
             ProgresoContenidoDTO guardado = progresoService.guardar(progresoDTO);
             return ResponseEntity.status(guardado.getId() == null ? HttpStatus.OK : HttpStatus.CREATED).body(guardado);
         } catch (RuntimeException e) {
-            System.out.println("⚠️ Progreso ya registrado o no recuperado. Ignorando.");
+            System.out.println("Progreso ya registrado o no recuperado. Ignorando.");
             return ResponseEntity.status(HttpStatus.OK).body("Ya registrado");
         }
     }
@@ -64,14 +64,14 @@ public class ProgresoContenidoController {
     }
 
     @GetMapping("/usuario/{usuarioId}/avance-cursos")
-    public ResponseEntity<List<ProgresoCursoDTO>> obtenerAvanceCursos(@PathVariable String usuarioId) {
+    public ResponseEntity<List<ProgresoCursoDTO>> obtenerAvanceCursos(@PathVariable Long usuarioId) {
         return ResponseEntity.ok(progresoService.obtenerAvanceCursosPorUsuario(usuarioId));
     }
 
     @GetMapping("/curso/{cursoId}/usuario/{usuarioId}")
     public ResponseEntity<ProgresoCursoDTO> obtenerAvancePorCursoYUsuario(
             @PathVariable Long cursoId,
-            @PathVariable String usuarioId) {
+            @PathVariable Long usuarioId) {
         return progresoService.obtenerAvancePorUsuarioYCurso(usuarioId, cursoId)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());

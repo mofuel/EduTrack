@@ -93,7 +93,7 @@ public class AuthController {
 
         Token t = tokenOpt.get();
         Usuarios usuario = t.getUsuario();
-        usuario.setContraseña(passwordEncoder.encode(nuevaPassword));
+        usuario.setPassword(passwordEncoder.encode(nuevaPassword));
         usuarioService.guardar(usuario);
 
         tokenService.marcarComoUsado(t);
