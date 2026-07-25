@@ -30,7 +30,7 @@ public class Usuarios {
     @Enumerated(EnumType.STRING)
     private RolUsuario rol = RolUsuario.ROLE_estudiante;
 
-    @Column
+    @Column(name = "contraseña")
     String password;
 
 

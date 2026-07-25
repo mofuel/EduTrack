@@ -8,18 +8,18 @@ import java.util.Optional;
 
 public interface ProgresoContenidoRepository {
 
-    List<ProgresoContenidoDTO> obtenerPorUsuario(String usuarioId);
+    List<ProgresoContenidoDTO> obtenerPorUsuario(Long  usuarioId);
 
-    boolean existeVisualizacion(String usuarioId, Long contenidoId);
+    boolean existeVisualizacion(Long  usuarioId, Long contenidoId);
 
     ProgresoContenidoDTO guardar(ProgresoContenidoDTO progresoDTO);
 
     Optional<ProgresoContenidoDTO> obtenerPorId(Long id);
 
-    Optional<ProgresoContenidoDTO> obtenerPorUsuarioYContenido(String usuarioId, Long contenidoId);
+    Optional<ProgresoContenidoDTO> obtenerPorUsuarioYContenido(Long  usuarioId, Long contenidoId);
 
-    List<ProgresoCursoDTO> obtenerAvancePorUsuario(String usuarioId);
+    List<ProgresoCursoDTO> obtenerAvancePorUsuario(Long  usuarioId);
 
-    Optional<ProgresoCursoDTO> obtenerAvancePorUsuarioYCurso(String usuarioId, Long cursoId);
+    Optional<ProgresoCursoDTO> obtenerAvancePorUsuarioYCurso(Long  usuarioId, Long cursoId);
 
 }

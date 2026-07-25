@@ -11,11 +11,11 @@ import java.util.Optional;
 
 public interface ProgresoContenidoCrudRepository extends JpaRepository<ProgresoContenido, Long> {
 
-    List<ProgresoContenido> findByUsuarioId(String usuarioId);
+    List<ProgresoContenido> findByUsuarioId(Long usuarioId);
 
-    boolean existsByUsuarioIdAndContenidoId(String usuarioId, Long contenidoId);
+    boolean existsByUsuarioIdAndContenidoId(Long usuarioId, Long contenidoId);
 
-    Optional<ProgresoContenido> findByUsuarioIdAndContenidoId(String usuarioId, Long contenidoId);
+    Optional<ProgresoContenido> findByUsuarioIdAndContenidoId(Long usuarioId, Long contenidoId);
 
     @Query("""
         SELECT c.modulo.curso.id AS cursoId,
@@ -27,7 +27,7 @@ public interface ProgresoContenidoCrudRepository extends JpaRepository<ProgresoC
         LEFT JOIN ProgresoContenido p ON c.id = p.contenido.id AND p.usuario.id = :usuarioId
         GROUP BY cu.id, cu.nombre
     """)
-    List<ProgresoCursoProjection> obtenerProgresoPorUsuario(@Param("usuarioId") String usuarioId);
+    List<ProgresoCursoProjection> obtenerProgresoPorUsuario(@Param("usuarioId") Long usuarioId);
 
     @Query("""
         SELECT c.modulo.curso.id AS cursoId,
@@ -41,6 +41,6 @@ public interface ProgresoContenidoCrudRepository extends JpaRepository<ProgresoC
         GROUP BY cu.id, cu.nombre
     """)
     Optional<ProgresoCursoProjection> obtenerProgresoPorUsuarioYCurso(
-            @Param("usuarioId") String usuarioId,
+            @Param("usuarioId") Long usuarioId,
             @Param("cursoId") Long cursoId);
 }

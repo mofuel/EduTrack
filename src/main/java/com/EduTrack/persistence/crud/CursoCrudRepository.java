@@ -7,18 +7,17 @@ import java.util.List;
 
 public interface CursoCrudRepository extends JpaRepository<Curso, Long> {
     // Obtener cursos por docente
-    List<Curso> findByDocente_Id(String docenteId);
+    List<Curso> findByDocente_Id(Long docenteId);
 
     // Buscar cursos donde el estudiante esté inscrito
-    List<Curso> findByEstudiantes_Id(String estudianteId);
+    List<Curso> findByEstudiantes_Id(Long estudianteId);
 
     // Buscar por nombre de curso que contenga una palabra (opcional para búsquedas)
     List<Curso> findByNombreContainingIgnoreCase(String nombre);
 
 
-    // ✅ Métodos con soft delete (activo = true)
-    List<Curso> findByDocente_IdAndActivoTrue(String docenteId);
-    List<Curso> findByEstudiantes_IdAndActivoTrue(String estudianteId);
+    // Métodos con soft delete (activo = true)
+    List<Curso> findByDocente_IdAndActivoTrue(Long docenteId);
     List<Curso> findByNombreContainingIgnoreCaseAndActivoTrue(String nombre);
     List<Curso> findByActivoTrue();
 

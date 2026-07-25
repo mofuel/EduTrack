@@ -41,12 +41,12 @@ public class ProgresoContenidoRepositoryImpl implements ProgresoContenidoReposit
 
 
     @Override
-    public List<ProgresoContenidoDTO> obtenerPorUsuario(String usuarioId) {
+    public List<ProgresoContenidoDTO> obtenerPorUsuario(Long usuarioId) {
         return mapper.toDTOList(crudRepository.findByUsuarioId(usuarioId));
     }
 
     @Override
-    public boolean existeVisualizacion(String usuarioId, Long contenidoId) {
+    public boolean existeVisualizacion(Long usuarioId, Long contenidoId) {
         return crudRepository.existsByUsuarioIdAndContenidoId(usuarioId, contenidoId);
     }
 
@@ -57,12 +57,12 @@ public class ProgresoContenidoRepositoryImpl implements ProgresoContenidoReposit
                 .findByUsuarioIdAndContenidoId(dto.getUsuarioId(), dto.getContenidoId());
 
         if (existente.isPresent()) {
-            System.out.println("⚠️ Ya existe progreso para este usuario y contenido. No se guardará de nuevo.");
+            System.out.println("Ya existe progreso para este usuario y contenido. No se guardará de nuevo.");
             return mapper.toDTO(existente.get());
         }
 
         // Buscar entidades relacionadas
-        Usuarios usuario = usuariosRepository.getByEmail(dto.getUsuarioId())
+        Usuarios usuario = usuariosRepository.getById(dto.getUsuarioId())
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
         Contenido contenido = contenidoRepository.getById(dto.getContenidoId())
                 .orElseThrow(() -> new RuntimeException("Contenido no encontrado"));
@@ -83,13 +83,13 @@ public class ProgresoContenidoRepositoryImpl implements ProgresoContenidoReposit
     }
 
     @Override
-    public Optional<ProgresoContenidoDTO> obtenerPorUsuarioYContenido(String usuarioId, Long contenidoId) {
+    public Optional<ProgresoContenidoDTO> obtenerPorUsuarioYContenido(Long usuarioId, Long contenidoId) {
         return progresoContenidoCrud.findByUsuarioIdAndContenidoId(usuarioId, contenidoId)
                 .map(mapper::toDTO);
     }
 
     @Override
-    public List<ProgresoCursoDTO> obtenerAvancePorUsuario(String usuarioId) {
+    public List<ProgresoCursoDTO> obtenerAvancePorUsuario(Long usuarioId) {
         var proyecciones = progresoContenidoCrud.obtenerProgresoPorUsuario(usuarioId);
         return proyecciones.stream()
                 .map(p -> {
@@ -102,7 +102,7 @@ public class ProgresoContenidoRepositoryImpl implements ProgresoContenidoReposit
     }
 
     @Override
-    public Optional<ProgresoCursoDTO> obtenerAvancePorUsuarioYCurso(String usuarioId, Long cursoId) {
+    public Optional<ProgresoCursoDTO> obtenerAvancePorUsuarioYCurso(Long usuarioId, Long cursoId) {
         Optional<ProgresoCursoProjection> projection =
                 progresoContenidoCrud.obtenerProgresoPorUsuarioYCurso(usuarioId, cursoId);
 

@@ -1,8 +1,10 @@
 package com.EduTrack.persistence.repositoryimpl;
 
 import com.EduTrack.domain.repository.CursoRepository;
+import com.EduTrack.persistence.crud.CursoCompradoCrudRepository;
 import com.EduTrack.persistence.crud.CursoCrudRepository;
 import com.EduTrack.persistence.entity.Curso;
+import com.EduTrack.persistence.entity.CursoComprado;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -14,6 +16,11 @@ public class CursoRepositoryImpl implements CursoRepository {
 
     @Autowired
     private CursoCrudRepository crud;
+
+    @Autowired
+    private CursoCompradoCrudRepository cursoCompradoCrud;
+
+
 
     @Override
     public List<Curso> getAll() {
@@ -46,7 +53,11 @@ public class CursoRepositoryImpl implements CursoRepository {
 
     @Override
     public List<Curso> getByEstudianteId(Long estudianteId) {
-        return List.of();
+        return cursoCompradoCrud.findByUsuario_Id(estudianteId)
+                .stream()
+                .map(CursoComprado::getCurso)
+                .filter(Curso::getActivo)
+                .toList();
     }
 
 
