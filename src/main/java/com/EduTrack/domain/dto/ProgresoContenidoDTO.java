@@ -9,7 +9,7 @@ public class ProgresoContenidoDTO {
     private String tituloContenido;
     private Long moduloId;
     private String nombreCurso;
-    private String usuarioId;
+    private Long usuarioId;
     private LocalDateTime fechaVisualizacion;
 
     public Long getId() {return id;}
@@ -28,9 +28,9 @@ public class ProgresoContenidoDTO {
 
     public void setModuloId(Long moduloId) {this.moduloId = moduloId;}
 
-    public String getUsuarioId() {return usuarioId;}
+    public Long getUsuarioId() {return usuarioId;}
 
-    public void setUsuarioId(String usuarioId) {this.usuarioId = usuarioId;}
+    public void setUsuarioId(Long usuarioId) {this.usuarioId = usuarioId;}
 
     public String getNombreCurso() {return nombreCurso;}
 
