@@ -31,4 +31,6 @@ public interface CursoRepository {
     List<Curso> searchDisponiblesPorNombre(String nombre);
 
     Page<Curso> getAll(Pageable pageable);
+
+    Page<Curso> getDisponiblesParaCompra(Pageable pageable);
 }

@@ -82,4 +82,9 @@ public class CursoRepositoryImpl implements CursoRepository {
     public Page<Curso> getAll(Pageable pageable) {
         return crud.findByActivoTrue(pageable);
     }
+
+    @Override
+    public Page<Curso> getDisponiblesParaCompra(Pageable pageable) {
+        return crud.findByActivoTrueAndDisponibleParaCompraTrue(pageable);
+    }
 }

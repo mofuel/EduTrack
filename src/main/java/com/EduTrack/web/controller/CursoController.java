@@ -124,11 +124,10 @@ public class CursoController {
 
     // GET: Obtener todos los cursos disponibles para compra
     @GetMapping("/disponibles")
-    public List<CursoDTO> obtenerCursosDisponiblesParaCompra() {
-        return cursoService.listarCursosDisponiblesParaCompra()
-                .stream()
-                .map(cursoMapper::toDTO)
-                .collect(Collectors.toList());
+    public ResponseEntity<Page<CursoDTO>> obtenerCursosDisponiblesParaCompra(
+            @PageableDefault(size = 10, sort = "id") Pageable pageable) {
+        Page<Curso> cursos = cursoService.listarCursosDisponiblesParaCompra(pageable);
+        return ResponseEntity.ok(cursos.map(cursoMapper::toDTO));
     }
 
     // GET: Buscar cursos disponibles por nombre

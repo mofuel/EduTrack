@@ -95,4 +95,9 @@ public class CursoService {
     public Page<Curso> listarCursos(Pageable pageable) {
         return cursoRepository.getAll(pageable);
     }
+
+    @Transactional(readOnly = true)
+    public Page<Curso> listarCursosDisponiblesParaCompra(Pageable pageable) {
+        return cursoRepository.getDisponiblesParaCompra(pageable);
+    }
 }
