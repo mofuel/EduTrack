@@ -9,8 +9,6 @@ public interface CursoCrudRepository extends JpaRepository<Curso, Long> {
     // Obtener cursos por docente
     List<Curso> findByDocente_Id(Long docenteId);
 
-    // Buscar cursos donde el estudiante esté inscrito
-    List<Curso> findByEstudiantes_Id(Long estudianteId);
 
     // Buscar por nombre de curso que contenga una palabra (opcional para búsquedas)
     List<Curso> findByNombreContainingIgnoreCase(String nombre);

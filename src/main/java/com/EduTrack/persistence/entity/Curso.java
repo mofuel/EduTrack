@@ -2,6 +2,7 @@ package com.EduTrack.persistence.entity;
 
 import jakarta.persistence.*;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.LocalDateTime;
 
@@ -22,7 +23,7 @@ public class Curso {
     @JoinColumn(name = "docente_id")
     private Usuarios docente;
 
-    private Double precio;
+    private BigDecimal precio;
 
     @Column(nullable = false)
     private Boolean activo = true;
@@ -65,9 +66,9 @@ public class Curso {
 
     public void setDocente(Usuarios docente) {this.docente = docente;}
 
-    public Double getPrecio() {return precio;}
+    public BigDecimal getPrecio() {return precio;}
 
-    public void setPrecio(Double precio) {this.precio = precio;}
+    public void setPrecio(BigDecimal precio) {this.precio = precio;}
 
     public Boolean getActivo() {return activo;}
 

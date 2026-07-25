@@ -1,5 +1,6 @@
 package com.EduTrack.domain.dto;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public class CursoDTO {
@@ -8,7 +9,7 @@ public class CursoDTO {
     private String descripcion;
     private Long docenteId;
     private String docenteNombre;
-    private Double precio;
+    private BigDecimal precio;
     private Boolean activo;
     private String requisitos;
     private String objetivos;
@@ -27,8 +28,8 @@ public class CursoDTO {
     public void setDocenteId(Long docenteId) { this.docenteId = docenteId; }
     public String getDocenteNombre() { return docenteNombre; }
     public void setDocenteNombre(String docenteNombre) { this.docenteNombre = docenteNombre; }
-    public Double getPrecio() { return precio; }
-    public void setPrecio(Double precio) { this.precio = precio; }
+    public BigDecimal getPrecio() { return precio; }
+    public void setPrecio(BigDecimal precio) { this.precio = precio; }
     public Boolean getActivo() { return activo; }
     public void setActivo(Boolean activo) { this.activo = activo; }
     public String getRequisitos() { return requisitos; }

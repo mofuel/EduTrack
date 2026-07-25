@@ -78,7 +78,7 @@ public class ProgresoContenidoController {
     }
 
     @GetMapping("/id-por-email")
-    public ResponseEntity<String> obtenerIdPorEmail(@RequestParam String email) {
+    public ResponseEntity<Long> obtenerIdPorEmail(@RequestParam String email) {
         return usuariosService.buscarPorEmail(email)
                 .map(usuario -> usuario.getId())
                 .map(ResponseEntity::ok)

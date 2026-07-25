@@ -1,6 +1,8 @@
 package com.EduTrack.persistence.entity;
 
 import jakarta.persistence.*;
+
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
@@ -21,7 +23,7 @@ public class ProgresoCurso {
     @JoinColumn(name = "curso_id", nullable = false)
     private Curso curso;
 
-    private Double porcentaje = 0.0;
+    private BigDecimal porcentaje;
 
     @Enumerated(EnumType.STRING)
     private EstadoProgreso estado = EstadoProgreso.NO_INICIADO;
@@ -47,9 +49,9 @@ public class ProgresoCurso {
 
     public void setCurso(Curso curso) { this.curso = curso; }
 
-    public Double getPorcentaje() { return porcentaje; }
+    public BigDecimal getPorcentaje() { return porcentaje; }
 
-    public void setPorcentaje(Double porcentaje) { this.porcentaje = porcentaje; }
+    public void setPorcentaje(BigDecimal porcentaje) { this.porcentaje = porcentaje; }
 
     public EstadoProgreso getEstado() { return estado; }
 
