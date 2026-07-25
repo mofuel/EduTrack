@@ -32,9 +32,6 @@ public class ProgresoCurso {
     @Column(name = "fecha_completado")
     private LocalDateTime fechaCompletado;
 
-    public enum EstadoProgreso {
-        NO_INICIADO, EN_CURSO, COMPLETADO
-    }
 
     public ProgresoCurso() {}
 

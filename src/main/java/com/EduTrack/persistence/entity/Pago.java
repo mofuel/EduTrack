@@ -29,9 +29,7 @@ public class Pago {
     @Enumerated(EnumType.STRING)
     private EstadoPago estado = EstadoPago.PENDIENTE;
 
-    public enum EstadoPago {
-        PENDIENTE, COMPLETADO, RECHAZADO, REEMBOLSADO
-    }
+
 
     public Long getId() {return id;}
 
