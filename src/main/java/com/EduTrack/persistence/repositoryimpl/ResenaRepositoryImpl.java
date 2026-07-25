@@ -10,29 +10,33 @@ import com.EduTrack.persistence.entity.Curso;
 import com.EduTrack.persistence.entity.Resena;
 import com.EduTrack.persistence.entity.Usuarios;
 import com.EduTrack.persistence.mapper.ResenaMapper;
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 @Repository
-@RequiredArgsConstructor
 public class ResenaRepositoryImpl implements IResenaRepository {
 
-    private final ResenaCrudRepository crud;
-    private final ResenaMapper mapper;
-    private final UsuariosCrudRepository usuarioCrudRepository;
-    private final CursoCrudRepository cursoCrudRepository;
+    @Autowired
+    private ResenaCrudRepository crud;
+
+    @Autowired
+    private ResenaMapper mapper;
+
+    @Autowired
+    private UsuariosCrudRepository usuarioCrudRepository;
+
+    @Autowired
+    private CursoCrudRepository cursoCrudRepository;
 
     @Override
-    public void guardar(ResenaDTO dto, Long idCurso, String idUsuario) {
+    public void guardar(ResenaDTO dto, Long idCurso, Long idUsuario) {
         Resena resena = mapper.toResena(dto);
 
-        // Obtener curso
         Curso curso = cursoCrudRepository.findById(idCurso)
                 .orElseThrow(() -> new RuntimeException("Curso no encontrado"));
 
-        // Obtener usuario por ID (ej: "U0001")
         Usuarios usuario = usuarioCrudRepository.findById(idUsuario)
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
 
@@ -46,11 +50,9 @@ public class ResenaRepositoryImpl implements IResenaRepository {
     public void guardarPorEmail(ResenaDTO dto, Long idCurso, String emailUsuario) {
         Resena resena = mapper.toResena(dto);
 
-        // Obtener curso
         Curso curso = cursoCrudRepository.findById(idCurso)
                 .orElseThrow(() -> new RuntimeException("Curso no encontrado"));
 
-        // Obtener usuario POR EMAIL (manejo manual de null)
         Usuarios usuario = usuarioCrudRepository.findByEmail(emailUsuario);
         if (usuario == null) {
             throw new RuntimeException("Usuario no encontrado");

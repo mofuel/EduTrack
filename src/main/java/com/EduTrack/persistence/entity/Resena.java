@@ -5,11 +5,11 @@ import lombok.*;
 
 import java.time.LocalDateTime;
 
+import jakarta.persistence.*;
+import java.time.LocalDateTime;
+
 @Entity
 @Table(name = "resenas")
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class Resena {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,6 +28,24 @@ public class Resena {
     @ManyToOne
     @JoinColumn(name = "id_usuario", nullable = false)
     private Usuarios usuarios;
+
+    public Resena() {}
+
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
+
+    public String getComentario() { return comentario; }
+    public void setComentario(String comentario) { this.comentario = comentario; }
+
+    public int getEstrellas() { return estrellas; }
+    public void setEstrellas(int estrellas) { this.estrellas = estrellas; }
+
+    public LocalDateTime getFecha() { return fecha; }
+    public void setFecha(LocalDateTime fecha) { this.fecha = fecha; }
+
+    public Curso getCurso() { return curso; }
+    public void setCurso(Curso curso) { this.curso = curso; }
+
+    public Usuarios getUsuarios() { return usuarios; }
+    public void setUsuarios(Usuarios usuarios) { this.usuarios = usuarios; }
 }
-
-
