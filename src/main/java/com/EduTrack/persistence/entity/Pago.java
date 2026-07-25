@@ -20,9 +20,18 @@ public class Pago {
     @JoinColumn(name = "curso_id", nullable = false)
     private Curso curso;
 
-    private String metodoPago;       // "yape", "plin", "tarjeta", etc.
-    private String referenciaPago;   // puede ser el número de operación o parte del número de tarjeta
+    private String metodoPago;
+
+    private String referenciaPago;
+
     private LocalDateTime fechaPago = LocalDateTime.now();
+
+    @Enumerated(EnumType.STRING)
+    private EstadoPago estado = EstadoPago.PENDIENTE;
+
+    public enum EstadoPago {
+        PENDIENTE, COMPLETADO, RECHAZADO, REEMBOLSADO
+    }
 
     public Long getId() {return id;}
 
@@ -47,4 +56,8 @@ public class Pago {
     public LocalDateTime getFechaPago() {return fechaPago;}
 
     public void setFechaPago(LocalDateTime fechaPago) {this.fechaPago = fechaPago;}
+
+    public EstadoPago getEstado() {return estado;}
+
+    public void setEstado(EstadoPago estado) {this.estado = estado;}
 }

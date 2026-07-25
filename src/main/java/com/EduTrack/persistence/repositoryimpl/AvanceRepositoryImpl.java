@@ -1,7 +1,5 @@
 package com.EduTrack.persistence.repositoryimpl;
 
-import com.EduTrack.persistence.entity.Avance;
-import com.EduTrack.domain.repository.AvanceRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;

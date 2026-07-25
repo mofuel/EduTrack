@@ -1,7 +1,5 @@
 package com.EduTrack.persistence.mapper;
 
-import com.EduTrack.domain.dto.AvanceDTO;
-import com.EduTrack.persistence.entity.Avance;
 import org.mapstruct.*;
 
 @Mapper(componentModel = "spring")

@@ -1,7 +1,5 @@
 package com.EduTrack.Repository;
 
-import com.EduTrack.domain.dto.AvanceDTO;
-import com.EduTrack.persistence.entity.Avance;
 import com.EduTrack.persistence.entity.Usuarios;
 import com.EduTrack.persistence.mapper.AvanceMapper;
 import org.junit.jupiter.api.Test;
