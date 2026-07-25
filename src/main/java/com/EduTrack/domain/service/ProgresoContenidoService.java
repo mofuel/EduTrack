@@ -3,8 +3,6 @@ package com.EduTrack.domain.service;
 import com.EduTrack.domain.dto.ProgresoContenidoDTO;
 import com.EduTrack.domain.dto.ProgresoCursoDTO;
 import com.EduTrack.domain.repository.ProgresoContenidoRepository;
-import com.EduTrack.persistance.mapper.ProgresoContenidoMapper;
-import com.EduTrack.persistance.entity.ProgresoContenido;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;

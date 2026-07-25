@@ -2,9 +2,9 @@ package com.EduTrack.domain.service;
 
 import com.EduTrack.domain.dto.AvanceDTO;
 import com.EduTrack.domain.repository.UsuariosRepository;
-import com.EduTrack.persistance.entity.Avance;
+import com.EduTrack.persistence.entity.Avance;
 import com.EduTrack.domain.repository.AvanceRepository;
-import com.EduTrack.persistance.mapper.AvanceMapper;
+import com.EduTrack.persistence.mapper.AvanceMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

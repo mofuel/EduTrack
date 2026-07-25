@@ -1,6 +1,6 @@
 package com.EduTrack.domain.repository;
 
-import com.EduTrack.persistance.entity.Avance;
+import com.EduTrack.persistence.entity.Avance;
 import java.util.List;
 
 public interface AvanceRepository {

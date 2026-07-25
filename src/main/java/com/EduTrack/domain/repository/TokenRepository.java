@@ -1,6 +1,6 @@
 package com.EduTrack.domain.repository;
 
-import com.EduTrack.persistance.entity.Token;
+import com.EduTrack.persistence.entity.Token;
 
 import java.util.Optional;
 

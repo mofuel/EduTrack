@@ -3,7 +3,7 @@ package com.EduTrack.web.controller;
 import com.EduTrack.domain.dto.CarritoDTO;
 import com.EduTrack.domain.repository.UsuariosRepository;
 import com.EduTrack.domain.service.CarritoService;
-import com.EduTrack.persistance.entity.Usuarios;
+import com.EduTrack.persistence.entity.Usuarios;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;

@@ -2,9 +2,9 @@ package com.EduTrack.web.controller;
 
 import com.EduTrack.domain.dto.CursoDTO;
 import com.EduTrack.domain.service.CursoService;
-import com.EduTrack.persistance.entity.Curso;
-import com.EduTrack.persistance.entity.Usuarios;
-import com.EduTrack.persistance.mapper.CursoMapper;
+import com.EduTrack.persistence.entity.Curso;
+import com.EduTrack.persistence.entity.Usuarios;
+import com.EduTrack.persistence.mapper.CursoMapper;
 import com.EduTrack.domain.repository.UsuariosRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;

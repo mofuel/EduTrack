@@ -2,11 +2,11 @@ package com.EduTrack.domain.service;
 
 import com.EduTrack.domain.dto.PagoDTO;
 import com.EduTrack.domain.repository.*;
-import com.EduTrack.persistance.entity.Curso;
-import com.EduTrack.persistance.entity.CursoComprado;
-import com.EduTrack.persistance.entity.Pago;
-import com.EduTrack.persistance.entity.Usuarios;
-import com.EduTrack.persistance.mapper.PagoMapper;
+import com.EduTrack.persistence.entity.Curso;
+import com.EduTrack.persistence.entity.CursoComprado;
+import com.EduTrack.persistence.entity.Pago;
+import com.EduTrack.persistence.entity.Usuarios;
+import com.EduTrack.persistence.mapper.PagoMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

@@ -1,6 +1,6 @@
 package com.EduTrack.domain.repository;
 
-import com.EduTrack.persistance.entity.Pago;
+import com.EduTrack.persistence.entity.Pago;
 
 import java.util.List;
 import java.util.Optional;

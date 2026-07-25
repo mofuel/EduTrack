@@ -1,10 +1,10 @@
 package com.EduTrack.domain.service;
 import com.EduTrack.domain.dto.CarritoDTO;
 import com.EduTrack.domain.repository.CarritoRepository;
-import com.EduTrack.persistance.entity.Carrito;
-import com.EduTrack.persistance.entity.Curso;
-import com.EduTrack.persistance.entity.Usuarios;
-import com.EduTrack.persistance.mapper.CarritoMapper;
+import com.EduTrack.persistence.entity.Carrito;
+import com.EduTrack.persistence.entity.Curso;
+import com.EduTrack.persistence.entity.Usuarios;
+import com.EduTrack.persistence.mapper.CarritoMapper;
 import com.EduTrack.domain.repository.CursoRepository;
 import com.EduTrack.domain.repository.UsuariosRepository;
 import org.springframework.beans.factory.annotation.Autowired;

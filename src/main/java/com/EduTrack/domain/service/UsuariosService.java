@@ -1,9 +1,9 @@
 package com.EduTrack.domain.service;
 
 import com.EduTrack.domain.dto.RegistroDTO;
-import com.EduTrack.persistance.entity.Usuarios;
+import com.EduTrack.persistence.entity.Usuarios;
 import com.EduTrack.domain.repository.UsuariosRepository;
-import com.EduTrack.persistance.mapper.RegistroMapper;
+import com.EduTrack.persistence.mapper.RegistroMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

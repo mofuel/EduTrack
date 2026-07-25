@@ -4,10 +4,10 @@ import com.EduTrack.domain.dto.CursoCompradoDTO;
 import com.EduTrack.domain.repository.CursoCompradoRepository;
 import com.EduTrack.domain.repository.CursoRepository;
 import com.EduTrack.domain.repository.UsuariosRepository;
-import com.EduTrack.persistance.entity.Curso;
-import com.EduTrack.persistance.entity.CursoComprado;
-import com.EduTrack.persistance.entity.Usuarios;
-import com.EduTrack.persistance.mapper.CursoCompradoMapper;
+import com.EduTrack.persistence.entity.Curso;
+import com.EduTrack.persistence.entity.CursoComprado;
+import com.EduTrack.persistence.entity.Usuarios;
+import com.EduTrack.persistence.mapper.CursoCompradoMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

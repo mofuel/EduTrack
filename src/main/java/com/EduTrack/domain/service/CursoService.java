@@ -1,7 +1,7 @@
 package com.EduTrack.domain.service;
 
 import com.EduTrack.domain.repository.CursoRepository;
-import com.EduTrack.persistance.entity.Curso;
+import com.EduTrack.persistence.entity.Curso;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

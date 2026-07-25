@@ -1,6 +1,6 @@
 package com.EduTrack.domain.repository;
 
-import com.EduTrack.persistance.entity.Curso;
+import com.EduTrack.persistence.entity.Curso;
 import java.util.List;
 import java.util.Optional;
 

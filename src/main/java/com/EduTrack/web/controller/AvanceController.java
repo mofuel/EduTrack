@@ -1,9 +1,9 @@
 package com.EduTrack.web.controller;
 
 import com.EduTrack.domain.dto.AvanceDTO;
-import com.EduTrack.persistance.entity.Avance;
+import com.EduTrack.persistence.entity.Avance;
 import com.EduTrack.domain.service.AvanceService;
-import com.EduTrack.persistance.mapper.AvanceMapper;
+import com.EduTrack.persistence.mapper.AvanceMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

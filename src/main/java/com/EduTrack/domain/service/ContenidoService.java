@@ -2,9 +2,9 @@ package com.EduTrack.domain.service;
 
 import com.EduTrack.domain.dto.ContenidoDTO;
 import com.EduTrack.domain.repository.ContenidoRepository;
-import com.EduTrack.persistance.entity.Contenido;
-import com.EduTrack.persistance.entity.Modulo;
-import com.EduTrack.persistance.mapper.ContenidoMapper;
+import com.EduTrack.persistence.entity.Contenido;
+import com.EduTrack.persistence.entity.Modulo;
+import com.EduTrack.persistence.mapper.ContenidoMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

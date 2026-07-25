@@ -1,6 +1,6 @@
 package com.EduTrack.domain.repository;
 
-import com.EduTrack.persistance.entity.Carrito;
+import com.EduTrack.persistence.entity.Carrito;
 
 import java.util.List;
 import java.util.Optional;

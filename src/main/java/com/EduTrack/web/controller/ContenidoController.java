@@ -2,7 +2,6 @@ package com.EduTrack.web.controller;
 
 import com.EduTrack.domain.dto.ContenidoDTO;
 import com.EduTrack.domain.service.ContenidoService;
-import com.EduTrack.persistance.entity.Contenido;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

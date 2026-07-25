@@ -1,9 +1,9 @@
 package com.EduTrack.Repository;
 
 import com.EduTrack.domain.dto.AvanceDTO;
-import com.EduTrack.persistance.entity.Avance;
-import com.EduTrack.persistance.entity.Usuarios;
-import com.EduTrack.persistance.mapper.AvanceMapper;
+import com.EduTrack.persistence.entity.Avance;
+import com.EduTrack.persistence.entity.Usuarios;
+import com.EduTrack.persistence.mapper.AvanceMapper;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
 
