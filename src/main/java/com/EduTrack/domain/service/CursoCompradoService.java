@@ -29,11 +29,11 @@ public class CursoCompradoService {
     @Autowired
     private CursoCompradoMapper mapper;
 
-    public List<CursoCompradoDTO> listarCursosComprados(String usuarioId) {
+    public List<CursoCompradoDTO> listarCursosComprados(Long usuarioId) {
         return mapper.toDTOList(cursoCompradoRepository.findByUsuarioId(usuarioId));
     }
 
-    public Optional<CursoCompradoDTO> registrarCompra(String usuarioId, Long cursoId) {
+    public Optional<CursoCompradoDTO> registrarCompra(Long usuarioId, Long cursoId) {
         Optional<Usuarios> usuarioOpt = usuarioRepository.getById(usuarioId);
         Optional<Curso> cursoOpt = cursoRepository.getById(cursoId);
 
@@ -47,7 +47,7 @@ public class CursoCompradoService {
         return Optional.of(mapper.toDTO(guardado));
     }
 
-    public boolean yaFueComprado(String usuarioId, Long cursoId) {
+    public boolean yaFueComprado(Long usuarioId, Long cursoId) {
         return cursoCompradoRepository.existeCompra(usuarioId, cursoId);
     }
 }

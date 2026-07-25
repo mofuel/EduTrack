@@ -45,12 +45,10 @@ public class PagoService {
             return Optional.empty();
         }
 
-        // Evita pagos duplicados
         if (pagoRepository.existePago(dto.getUsuarioId(), dto.getCursoId())) {
             return Optional.empty();
         }
 
-        // 1. Guardar el pago
         Pago pago = new Pago();
         pago.setUsuario(usuarioOpt.get());
         pago.setCurso(cursoOpt.get());
@@ -60,10 +58,8 @@ public class PagoService {
 
         Pago guardado = pagoRepository.save(pago);
 
-        // 2. Eliminar del carrito
         carritoRepository.deleteByUsuarioIdAndCursoId(dto.getUsuarioId(), dto.getCursoId());
 
-        // 3. Registrar curso comprado (si no fue comprado aún)
         if (!cursoCompradoRepository.existeCompra(dto.getUsuarioId(), dto.getCursoId())) {
             CursoComprado compra = new CursoComprado();
             compra.setUsuario(usuarioOpt.get());
@@ -75,12 +71,11 @@ public class PagoService {
         return Optional.of(pagoMapper.toDTO(guardado));
     }
 
-
-    public boolean yaFuePagado(String usuarioId, Long cursoId) {
+    public boolean yaFuePagado(Long usuarioId, Long cursoId) {
         return pagoRepository.existePago(usuarioId, cursoId);
     }
 
-    public List<PagoDTO> listarPagosPorUsuario(String usuarioId) {
+    public List<PagoDTO> listarPagosPorUsuario(Long usuarioId) {
         List<Pago> pagos = pagoRepository.findByUsuarioId(usuarioId);
         return pagoMapper.toDTOList(pagos);
     }

@@ -16,7 +16,6 @@ public class ProgresoContenidoService {
     @Autowired
     private ProgresoContenidoRepository progresoContenidoRepository;
 
-    // Metodo principal para guardar progreso (evita duplicados)
     public ProgresoContenidoDTO guardar(ProgresoContenidoDTO dto) {
         try {
             Optional<ProgresoContenidoDTO> existente = progresoContenidoRepository
@@ -27,9 +26,8 @@ public class ProgresoContenidoService {
             return progresoContenidoRepository.guardar(dto);
 
         } catch (DataIntegrityViolationException e) {
-            System.out.println("⚠️ Ya existe progreso (detectado por índice único). Recuperando...");
+            System.out.println("Ya existe progreso (detectado por índice único). Recuperando...");
 
-            // Reintentar hasta 3 veces con pausas de 100ms
             for (int i = 0; i < 3; i++) {
                 Optional<ProgresoContenidoDTO> existente = progresoContenidoRepository
                         .obtenerPorUsuarioYContenido(dto.getUsuarioId(), dto.getContenidoId());
@@ -37,7 +35,7 @@ public class ProgresoContenidoService {
                 if (existente.isPresent()) return existente.get();
 
                 try {
-                    Thread.sleep(100); // pequeña espera
+                    Thread.sleep(100);
                 } catch (InterruptedException ignored) {}
             }
 
@@ -45,24 +43,23 @@ public class ProgresoContenidoService {
         }
     }
 
-    public List<ProgresoContenidoDTO> obtenerProgresosPorUsuario(String usuarioId) {
+    public List<ProgresoContenidoDTO> obtenerProgresosPorUsuario(Long usuarioId) {
         return progresoContenidoRepository.obtenerPorUsuario(usuarioId);
     }
 
-
-    public boolean existeProgreso(String usuarioId, Long contenidoId) {
+    public boolean existeProgreso(Long usuarioId, Long contenidoId) {
         return progresoContenidoRepository.existeVisualizacion(usuarioId, contenidoId);
     }
 
-    // Este metodo es llamado en el controller como obtenerPorId()
     public Optional<ProgresoContenidoDTO> obtenerPorId(Long id) {
         return progresoContenidoRepository.obtenerPorId(id);
     }
 
-    public List<ProgresoCursoDTO> obtenerAvanceCursosPorUsuario(String usuarioId) {
+    public List<ProgresoCursoDTO> obtenerAvanceCursosPorUsuario(Long usuarioId) {
         return progresoContenidoRepository.obtenerAvancePorUsuario(usuarioId);
     }
-    public Optional<ProgresoCursoDTO> obtenerAvancePorUsuarioYCurso(String usuarioId, Long cursoId) {
+
+    public Optional<ProgresoCursoDTO> obtenerAvancePorUsuarioYCurso(Long usuarioId, Long cursoId) {
         return progresoContenidoRepository.obtenerAvancePorUsuarioYCurso(usuarioId, cursoId);
     }
 }

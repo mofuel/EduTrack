@@ -16,12 +16,12 @@ public class CursoCompradoRepositoryImpl implements CursoCompradoRepository {
     private CursoCompradoCrudRepository crud;
 
     @Override
-    public List<CursoComprado> findByUsuarioId(String usuarioId) {
+    public List<CursoComprado> findByUsuarioId(Long usuarioId) {
         return crud.findByUsuario_Id(usuarioId);
     }
 
     @Override
-    public boolean existeCompra(String usuarioId, Long cursoId) {
+    public boolean existeCompra(Long usuarioId, Long cursoId) {
         return crud.existsByUsuario_IdAndCurso_Id(usuarioId, cursoId);
     }
 

@@ -16,12 +16,12 @@ public class CarritoRepositoryImpl implements CarritoRepository {
     private CarritoCrudRepository crud;
 
     @Override
-    public List<Carrito> getByUsuarioId(String usuarioId) {
+    public List<Carrito> getByUsuarioId(Long usuarioId) {
         return crud.findByUsuario_Id(usuarioId);
     }
 
     @Override
-    public Optional<Carrito> getByUsuarioIdAndCursoId(String usuarioId, Long cursoId) {
+    public Optional<Carrito> getByUsuarioIdAndCursoId(Long usuarioId, Long cursoId) {
         return crud.findByUsuario_IdAndCurso_Id(usuarioId, cursoId);
     }
 
@@ -31,7 +31,7 @@ public class CarritoRepositoryImpl implements CarritoRepository {
     }
 
     @Override
-    public void deleteByUsuarioIdAndCursoId(String usuarioId, Long cursoId) {
+    public void deleteByUsuarioIdAndCursoId(Long usuarioId, Long cursoId) {
         crud.deleteByUsuario_IdAndCurso_Id(usuarioId, cursoId);
     }
 }

@@ -40,14 +40,15 @@ public class CursoRepositoryImpl implements CursoRepository {
     }
 
     @Override
-    public List<Curso> getByDocenteId(String docenteId) {
+    public List<Curso> getByDocenteId(Long docenteId) {
         return crud.findByDocente_IdAndActivoTrue(docenteId);
     }
 
     @Override
-    public List<Curso> getByEstudianteId(String estudianteId) {
-        return crud.findByEstudiantes_IdAndActivoTrue(estudianteId);
+    public List<Curso> getByEstudianteId(Long estudianteId) {
+        return List.of();
     }
+
 
     @Override
     public List<Curso> searchByNombre(String nombre) {

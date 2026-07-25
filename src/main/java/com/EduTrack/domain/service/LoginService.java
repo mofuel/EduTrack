@@ -20,19 +20,17 @@ public class LoginService implements UserDetailsService {
     @Autowired
     private UsuariosRepository usuariosRepository;
 
-
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Usuarios usuario = usuariosRepository.getByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado con email: " + email));
 
-        // Agrega el rol como autoridad
-        List<GrantedAuthority> authorities = Collections.singletonList(new SimpleGrantedAuthority(usuario.getRol()));
+        List<GrantedAuthority> authorities = Collections.singletonList(new SimpleGrantedAuthority(usuario.getRol().name()));
 
         return new User(
                 usuario.getEmail(),
-                usuario.getContraseña(),
-                Collections.singletonList(new SimpleGrantedAuthority(usuario.getRol()))
+                usuario.getPassword(),
+                authorities
         );
     }
 }

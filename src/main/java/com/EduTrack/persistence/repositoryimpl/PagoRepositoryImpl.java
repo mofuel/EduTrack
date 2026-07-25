@@ -16,7 +16,7 @@ public class PagoRepositoryImpl implements PagoRepository {
     private PagoCrudRepository crud;
 
     @Override
-    public List<Pago> findByUsuarioId(String usuarioId) {
+    public List<Pago> findByUsuarioId(Long usuarioId) {
         return crud.findByUsuario_Id(usuarioId);
     }
 
@@ -26,7 +26,7 @@ public class PagoRepositoryImpl implements PagoRepository {
     }
 
     @Override
-    public boolean existePago(String usuarioId, Long cursoId) {
+    public boolean existePago(Long usuarioId, Long cursoId) {
         return crud.existsByUsuario_IdAndCurso_Id(usuarioId, cursoId);
     }
 

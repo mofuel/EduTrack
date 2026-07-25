@@ -38,29 +38,23 @@ public class CertificadoService {
     @Autowired
     private CursoMapper cursoMapper;
 
-
-    public CursoDTO obtenerCursoConProgreso(String usuarioId, Long cursoId) {
+    public CursoDTO obtenerCursoConProgreso(Long usuarioId, Long cursoId) {
         Curso curso = cursoService.obtenerCursoPorId(cursoId)
                 .orElseThrow(() -> new RuntimeException("Curso no encontrado"));
 
-        // Mapear el curso a DTO
         CursoDTO dto = cursoMapper.toDTO(curso);
 
-        // Obtener el progreso del usuario en ese curso
         Double porcentajeAvance = progresoContenidoRepository
                 .obtenerAvancePorUsuarioYCurso(usuarioId, cursoId)
                 .map(ProgresoCursoDTO::getPorcentajeAvance)
                 .orElse(0.0);
 
-        // Decorar el DTO con el porcentaje
         dto.setPorcentajeAvance(porcentajeAvance);
 
         return dto;
     }
 
-
-    public byte[] generarCertificado(String usuarioId, Long cursoId) throws Exception {
-        // Verificar si el usuario completó el curso (avance 100%)
+    public byte[] generarCertificado(Long usuarioId, Long cursoId) throws Exception {
         Optional<ProgresoCursoDTO> progreso = progresoContenidoRepository
                 .obtenerAvancePorUsuarioYCurso(usuarioId, cursoId);
 
@@ -68,7 +62,6 @@ public class CertificadoService {
             throw new IllegalStateException("El curso aún no ha sido completado.");
         }
 
-        // Obtener datos del estudiante y curso
         Optional<Usuarios> usuarioOpt = usuariosRepository.getById(usuarioId);
         Optional<Curso> cursoOpt = cursoRepository.getById(cursoId);
 
@@ -79,7 +72,6 @@ public class CertificadoService {
         Usuarios usuario = usuarioOpt.get();
         Curso curso = cursoOpt.get();
 
-        // Crear PDF con iText
         Document documento = new Document();
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         PdfWriter.getInstance(documento, out);

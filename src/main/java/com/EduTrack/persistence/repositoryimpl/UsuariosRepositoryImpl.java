@@ -27,7 +27,7 @@ public class UsuariosRepositoryImpl implements UsuariosRepository {
 
 
     @Override
-    public Optional<Usuarios> getById(String id) {
+    public Optional<Usuarios> getById(Long id) {
         return crud.findById(id);
     }
 
@@ -52,16 +52,9 @@ public class UsuariosRepositoryImpl implements UsuariosRepository {
     }
 
     @Override
-    public void delete(String id) {
+    public void delete(Long id) {
         crud.deleteById(id);
     }
 
-    // Metodo nuevo para obtener el último ID
-    public Optional<String> findLastId() {
-        List<String> ids = crud.findAllIdsDesc(PageRequest.of(0, 1));
-        if (ids.isEmpty()) {
-            return Optional.empty();
-        }
-        return Optional.of(ids.get(0));
-    }
+
 }
