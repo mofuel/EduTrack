@@ -1,6 +1,8 @@
 package com.EduTrack.persistence.entity;
 
 import jakarta.persistence.*;
+
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -19,13 +21,7 @@ public class Curso {
     @JoinColumn(name = "docente_id")
     private Usuarios docente;
 
-    @ManyToMany
-    @JoinTable(
-            name = "curso_estudiantes",
-            joinColumns = @JoinColumn(name = "curso_id"),
-            inverseJoinColumns = @JoinColumn(name = "estudiante_id")
-    )
-    private List<Usuarios> estudiantes;
+
 
     private Double precio;
 
@@ -47,6 +43,7 @@ public class Curso {
     @Column(length = 500)
     private String imagen;
 
+    private LocalDateTime createdAt;
 
 
     // Constructor vacío
@@ -68,10 +65,6 @@ public class Curso {
     public Usuarios getDocente() {return docente;}
 
     public void setDocente(Usuarios docente) {this.docente = docente;}
-
-    public List<Usuarios> getEstudiantes() {return estudiantes;}
-
-    public void setEstudiantes(List<Usuarios> estudiantes) {this.estudiantes = estudiantes;}
 
     public Double getPrecio() {return precio;}
 
@@ -100,4 +93,8 @@ public class Curso {
     public Boolean getDisponibleParaCompra() {return disponibleParaCompra;}
 
     public void setDisponibleParaCompra(Boolean disponibleParaCompra) {this.disponibleParaCompra = disponibleParaCompra;}
+
+    public LocalDateTime getCreatedAt() {return createdAt;}
+
+    public void setCreatedAt(LocalDateTime createdAt) {this.createdAt = createdAt;}
 }
