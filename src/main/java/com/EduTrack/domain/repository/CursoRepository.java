@@ -1,6 +1,9 @@
 package com.EduTrack.domain.repository;
 
 import com.EduTrack.persistence.entity.Curso;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -27,4 +30,5 @@ public interface CursoRepository {
     // Búsqueda por nombre solo en cursos activos y disponibles
     List<Curso> searchDisponiblesPorNombre(String nombre);
 
+    Page<Curso> getAll(Pageable pageable);
 }

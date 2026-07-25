@@ -21,14 +21,6 @@ public class CursoCompradoController {
         return ResponseEntity.ok(service.listarCursosComprados(usuarioId));
     }
 
-    @PostMapping("/comprar")
-    public ResponseEntity<CursoCompradoDTO> comprarCurso(
-            @RequestParam Long usuarioId,
-            @RequestParam Long cursoId) {
-        Optional<CursoCompradoDTO> comprado = service.registrarCompra(usuarioId, cursoId);
-        return comprado.map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.badRequest().build());
-    }
 
     @GetMapping("/existe")
     public ResponseEntity<Boolean> yaComprado(

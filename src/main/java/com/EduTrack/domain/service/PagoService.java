@@ -16,6 +16,22 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
+import com.EduTrack.domain.dto.PagoDTO;
+import com.EduTrack.domain.repository.*;
+import com.EduTrack.persistence.entity.Curso;
+import com.EduTrack.persistence.entity.CursoComprado;
+import com.EduTrack.persistence.entity.Pago;
+import com.EduTrack.persistence.entity.Usuarios;
+import com.EduTrack.persistence.entity.EstadoPago;
+import com.EduTrack.persistence.mapper.PagoMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Optional;
+
 @Service
 public class PagoService {
 
@@ -36,6 +52,9 @@ public class PagoService {
 
     @Autowired
     private PagoMapper pagoMapper;
+
+    @Autowired
+    private EmailService emailService;
 
     @Transactional
     public Optional<PagoDTO> registrarPago(PagoDTO dto) {
@@ -68,6 +87,15 @@ public class PagoService {
             compra.setFechaCompra(LocalDateTime.now());
             cursoCompradoRepository.save(compra);
         }
+
+        String emailUsuario = usuarioOpt.get().getEmail();
+        String nombreCurso = cursoOpt.get().getNombre();
+        String mensaje = "Hola " + usuarioOpt.get().getNombre() + ",\n\n"
+                + "¡Gracias por tu compra! Has adquirido el curso: " + nombreCurso + ".\n"
+                + "Ya puedes acceder al contenido desde tu panel de estudiante.\n\n"
+                + "Saludos,\nEduTrack";
+
+        emailService.enviarCorreo(emailUsuario, "Confirmación de compra - EduTrack", mensaje);
 
         return Optional.of(pagoMapper.toDTO(guardado));
     }

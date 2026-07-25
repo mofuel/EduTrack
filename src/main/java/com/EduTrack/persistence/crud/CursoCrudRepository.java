@@ -1,29 +1,35 @@
 package com.EduTrack.persistence.crud;
 
 import com.EduTrack.persistence.entity.Curso;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
-
+import org.springframework.data.jpa.repository.EntityGraph;
 import java.util.List;
 
 public interface CursoCrudRepository extends JpaRepository<Curso, Long> {
-    // Obtener cursos por docente
+
+    @EntityGraph(attributePaths = {"docente"})
     List<Curso> findByDocente_Id(Long docenteId);
 
-
-    // Buscar por nombre de curso que contenga una palabra (opcional para búsquedas)
+    @EntityGraph(attributePaths = {"docente"})
     List<Curso> findByNombreContainingIgnoreCase(String nombre);
 
-
-    // Métodos con soft delete (activo = true)
+    @EntityGraph(attributePaths = {"docente"})
     List<Curso> findByDocente_IdAndActivoTrue(Long docenteId);
+
+    @EntityGraph(attributePaths = {"docente"})
     List<Curso> findByNombreContainingIgnoreCaseAndActivoTrue(String nombre);
+
+    @EntityGraph(attributePaths = {"docente"})
     List<Curso> findByActivoTrue();
 
-    // Cursos activos y disponibles para compra (catálogo público)
+    @EntityGraph(attributePaths = {"docente"})
     List<Curso> findByActivoTrueAndDisponibleParaCompraTrue();
 
-    // Buscar por nombre, solo cursos activos y disponibles para compra
+    @EntityGraph(attributePaths = {"docente"})
     List<Curso> findByNombreContainingIgnoreCaseAndActivoTrueAndDisponibleParaCompraTrue(String nombre);
 
-
+    @EntityGraph(attributePaths = {"docente"})
+    Page<Curso> findByActivoTrue(Pageable pageable);
 }

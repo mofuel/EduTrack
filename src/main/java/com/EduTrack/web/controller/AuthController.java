@@ -54,11 +54,7 @@ public class AuthController {
 
         Usuarios usuario = userOpt.get();
 
-        // Generar letra aleatoria A-Z
-        char letra = (char) ('A' + new Random().nextInt(26));
-        // Generar 4 dígitos aleatorios
-        int numeros = 1000 + new Random().nextInt(9000);
-        String rawToken = letra + "-" + numeros;
+        String rawToken = UUID.randomUUID().toString(); // ej: "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
 
         Token token = new Token();
         token.setToken(rawToken);
@@ -71,7 +67,7 @@ public class AuthController {
         // Enviar solo el token, no link
         emailService.enviarCorreo(email, "Recuperación de contraseña", "Tu token de recuperación es: " + rawToken);
 
-        return ResponseEntity.ok(Map.of("mensaje", "Correo de recuperación enviado", "letraToken", String.valueOf(letra)));
+        return ResponseEntity.ok(Map.of("mensaje", "Correo de recuperación enviado"));
     }
 
     @GetMapping("/verificar")

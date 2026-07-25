@@ -6,6 +6,8 @@ import com.EduTrack.persistence.crud.CursoCrudRepository;
 import com.EduTrack.persistence.entity.Curso;
 import com.EduTrack.persistence.entity.CursoComprado;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -74,5 +76,10 @@ public class CursoRepositoryImpl implements CursoRepository {
     @Override
     public List<Curso> searchDisponiblesPorNombre(String nombre) {
         return crud.findByNombreContainingIgnoreCaseAndActivoTrueAndDisponibleParaCompraTrue(nombre);
+    }
+
+    @Override
+    public Page<Curso> getAll(Pageable pageable) {
+        return crud.findByActivoTrue(pageable);
     }
 }

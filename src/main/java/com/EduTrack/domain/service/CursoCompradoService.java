@@ -33,19 +33,7 @@ public class CursoCompradoService {
         return mapper.toDTOList(cursoCompradoRepository.findByUsuarioId(usuarioId));
     }
 
-    public Optional<CursoCompradoDTO> registrarCompra(Long usuarioId, Long cursoId) {
-        Optional<Usuarios> usuarioOpt = usuarioRepository.getById(usuarioId);
-        Optional<Curso> cursoOpt = cursoRepository.getById(cursoId);
 
-        if (usuarioOpt.isEmpty() || cursoOpt.isEmpty()) return Optional.empty();
-
-        CursoComprado comprado = new CursoComprado();
-        comprado.setUsuario(usuarioOpt.get());
-        comprado.setCurso(cursoOpt.get());
-
-        CursoComprado guardado = cursoCompradoRepository.save(comprado);
-        return Optional.of(mapper.toDTO(guardado));
-    }
 
     public boolean yaFueComprado(Long usuarioId, Long cursoId) {
         return cursoCompradoRepository.existeCompra(usuarioId, cursoId);
