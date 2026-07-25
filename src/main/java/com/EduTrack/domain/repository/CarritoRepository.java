@@ -7,11 +7,11 @@ import java.util.Optional;
 
 public interface CarritoRepository {
 
-    List<Carrito> getByUsuarioId(String usuarioId);
+    List<Carrito> getByUsuarioId(Long usuarioId);
 
-    Optional<Carrito> getByUsuarioIdAndCursoId(String usuarioId, Long cursoId);
+    Optional<Carrito> getByUsuarioIdAndCursoId(Long usuarioId, Long cursoId);
 
     Carrito save(Carrito carrito);
 
-    void deleteByUsuarioIdAndCursoId(String usuarioId, Long cursoId);
+    void deleteByUsuarioIdAndCursoId(Long usuarioId, Long cursoId);
 }

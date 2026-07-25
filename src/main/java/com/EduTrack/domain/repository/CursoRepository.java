@@ -13,10 +13,10 @@ public interface CursoRepository {
     void softDelete(Long id);
 
     // Buscar solo cursos activos por docente
-    List<Curso> getByDocenteId(String docenteId);
+    List<Curso> getByDocenteId(Long docenteId);
 
     // Buscar solo cursos activos por estudiante
-    List<Curso> getByEstudianteId(String estudianteId);
+    List<Curso> getByEstudianteId(Long estudianteId);
 
     // Búsqueda solo en cursos activos
     List<Curso> searchByNombre(String nombre);

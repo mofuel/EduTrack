@@ -12,6 +12,5 @@ public interface UsuariosMapper {
 
     // Mapeo inverso de DTO a entidad
     @InheritInverseConfiguration
-    @Mapping(target = "avances", ignore = true) // se maneja por separado
     Usuarios toUsuarios(UsuariosDTO usuarioDTO);
 }
