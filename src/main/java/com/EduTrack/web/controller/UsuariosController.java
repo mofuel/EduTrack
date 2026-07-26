@@ -16,11 +16,7 @@ public class UsuariosController {
     @Autowired
     private UsuariosService usuariosService;
 
-    // Obtener lista de usuarios
-    @GetMapping
-    public List<Usuarios> obtenerUsuarios() {
-        return usuariosService.listarTodos();
-    }
+
 
     // Obtener un usuario por su ID
     @GetMapping("/{id}")

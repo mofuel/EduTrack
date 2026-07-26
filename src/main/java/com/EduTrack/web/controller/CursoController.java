@@ -123,14 +123,6 @@ public class CursoController {
         return ResponseEntity.ok(cursos.map(cursoMapper::toDTO));
     }
 
-    // GET: Buscar cursos disponibles por nombre
-    @GetMapping("/disponibles/buscar")
-    public List<CursoDTO> buscarCursosDisponiblesPorNombre(@RequestParam("nombre") String nombre) {
-        return cursoService.buscarCursosDisponiblesPorNombre(nombre)
-                .stream()
-                .map(cursoMapper::toDTO)
-                .collect(Collectors.toList());
-    }
 
     // PATCH: Cambiar disponibilidad de compra
     @PatchMapping("/{id}/disponibilidad")

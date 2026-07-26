@@ -33,12 +33,8 @@ public class ResenaController {
             return ResponseEntity.badRequest().body("Usuario no encontrado");
         }
 
-        try {
-            ResenaDTO creada = resenaService.crearResena(dto, usuario.get().getId());
-            return ResponseEntity.ok(creada);
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
+        ResenaDTO creada = resenaService.crearResena(dto, usuario.get().getId());
+        return ResponseEntity.ok(creada);
     }
 
     @GetMapping("/curso/{cursoId}")

@@ -7,7 +7,6 @@ import com.EduTrack.persistence.entity.Token;
 import com.EduTrack.persistence.entity.Usuarios;
 import com.EduTrack.security.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -20,7 +19,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.Map;
+import java.util.NoSuchElementException;
+import java.util.Optional;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/auth")
@@ -46,15 +48,10 @@ public class AuthController {
 
     @PostMapping("/recuperar")
     public ResponseEntity<?> recuperarPassword(@RequestParam String email) {
-        Optional<Usuarios> userOpt = usuarioService.buscarPorEmail(email);
-        if (userOpt.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body(Map.of("error", "Correo no registrado"));
-        }
+        Usuarios usuario = usuarioService.buscarPorEmail(email)
+                .orElseThrow(() -> new NoSuchElementException("Correo no registrado"));
 
-        Usuarios usuario = userOpt.get();
-
-        String rawToken = UUID.randomUUID().toString(); // ej: "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+        String rawToken = UUID.randomUUID().toString();
 
         Token token = new Token();
         token.setToken(rawToken);
@@ -64,7 +61,6 @@ public class AuthController {
         token.setUsado(false);
         tokenService.crearToken(token);
 
-        // Enviar solo el token, no link
         emailService.enviarCorreo(email, "Recuperación de contraseña", "Tu token de recuperación es: " + rawToken);
 
         return ResponseEntity.ok(Map.of("mensaje", "Correo de recuperación enviado"));
@@ -75,19 +71,19 @@ public class AuthController {
         boolean esValido = tokenService.validarToken(token);
         if (esValido) {
             return ResponseEntity.ok(Map.of("mensaje", "Token válido"));
-        } else {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of("error", "Token inválido o expirado"));
         }
+        throw new IllegalArgumentException("Token inválido o expirado");
     }
 
     @PostMapping("/cambiar-password")
     public ResponseEntity<?> cambiarPassword(@RequestParam String token, @RequestParam String nuevaPassword) {
-        Optional<Token> tokenOpt = tokenService.obtenerPorToken(token);
-        if (tokenOpt.isEmpty() || !tokenService.validarToken(token)) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of("error", "Token inválido o expirado"));
+        Token t = tokenService.obtenerPorToken(token)
+                .orElseThrow(() -> new IllegalArgumentException("Token inválido o expirado"));
+
+        if (!tokenService.validarToken(token)) {
+            throw new IllegalArgumentException("Token inválido o expirado");
         }
 
-        Token t = tokenOpt.get();
         Usuarios usuario = t.getUsuario();
         usuario.setPassword(passwordEncoder.encode(nuevaPassword));
         usuarioService.guardar(usuario);
@@ -96,7 +92,6 @@ public class AuthController {
 
         return ResponseEntity.ok(Map.of("mensaje", "Contraseña actualizada correctamente"));
     }
-
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody Map<String, String> body) {
@@ -112,7 +107,6 @@ public class AuthController {
             Usuarios usuario = usuarioService.buscarPorEmail(email)
                     .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado"));
 
-            // 🎯 Aquí usamos el nuevo metodo con el ID del usuario
             String jwt = jwtUtil.generateToken(userDetails, usuario.getId().toString());
 
             String rol = userDetails.getAuthorities().stream()
@@ -128,9 +122,7 @@ public class AuthController {
                     "nombre", usuario.getNombre()
             ));
         } catch (AuthenticationException ex) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of("error", "Credenciales inválidas"));
+            throw new AuthenticationException("Credenciales inválidas") {};
         }
     }
-
-
 }

@@ -13,12 +13,11 @@ import com.itextpdf.text.pdf.PdfWriter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Optional;
-
 
 @Service
 public class CertificadoService {
@@ -54,7 +53,7 @@ public class CertificadoService {
         return dto;
     }
 
-    public byte[] generarCertificado(Long usuarioId, Long cursoId) throws Exception {
+    public byte[] generarCertificado(Long usuarioId, Long cursoId) {
         Optional<ProgresoCursoDTO> progreso = progresoContenidoRepository
                 .obtenerAvancePorUsuarioYCurso(usuarioId, cursoId);
 
@@ -72,30 +71,34 @@ public class CertificadoService {
         Usuarios usuario = usuarioOpt.get();
         Curso curso = cursoOpt.get();
 
-        Document documento = new Document();
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
-        PdfWriter.getInstance(documento, out);
+        try {
+            Document documento = new Document();
+            ByteArrayOutputStream out = new ByteArrayOutputStream();
+            PdfWriter.getInstance(documento, out);
 
-        documento.open();
+            documento.open();
 
-        Font titulo = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 24);
-        Font normal = FontFactory.getFont(FontFactory.HELVETICA, 12);
+            Font titulo = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 24);
+            Font normal = FontFactory.getFont(FontFactory.HELVETICA, 12);
 
-        documento.add(new Paragraph("CERTIFICADO DE FINALIZACIÓN", titulo));
-        documento.add(new Paragraph("\n"));
-        documento.add(new Paragraph("Se otorga a:", normal));
-        documento.add(new Paragraph(usuario.getNombre() + " " + usuario.getApellido(), titulo));
-        documento.add(new Paragraph("\n"));
-        documento.add(new Paragraph("Por haber completado satisfactoriamente el curso:", normal));
-        documento.add(new Paragraph("\"" + curso.getNombre() + "\"", titulo));
-        documento.add(new Paragraph("\n"));
-        documento.add(new Paragraph("Dictado por: " + curso.getDocente().getNombre(), normal));
-        documento.add(new Paragraph("Fecha de finalización: " +
-                LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")), normal));
-        documento.add(new Paragraph("\n\n"));
-        documento.add(new Paragraph("¡Felicidades por tu logro!", normal));
+            documento.add(new Paragraph("CERTIFICADO DE FINALIZACIÓN", titulo));
+            documento.add(new Paragraph("\n"));
+            documento.add(new Paragraph("Se otorga a:", normal));
+            documento.add(new Paragraph(usuario.getNombre() + " " + usuario.getApellido(), titulo));
+            documento.add(new Paragraph("\n"));
+            documento.add(new Paragraph("Por haber completado satisfactoriamente el curso:", normal));
+            documento.add(new Paragraph("\"" + curso.getNombre() + "\"", titulo));
+            documento.add(new Paragraph("\n"));
+            documento.add(new Paragraph("Dictado por: " + curso.getDocente().getNombre(), normal));
+            documento.add(new Paragraph("Fecha de finalización: " +
+                    LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")), normal));
+            documento.add(new Paragraph("\n\n"));
+            documento.add(new Paragraph("¡Felicidades por tu logro!", normal));
 
-        documento.close();
-        return out.toByteArray();
+            documento.close();
+            return out.toByteArray();
+        } catch (DocumentException e)  {
+            throw new RuntimeException("Error al generar el certificado PDF", e);
+        }
     }
 }

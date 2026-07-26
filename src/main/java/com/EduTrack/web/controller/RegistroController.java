@@ -54,12 +54,7 @@ public class RegistroController {
             return ResponseEntity.badRequest().body("Las contraseñas no coinciden");
         }
 
-        try {
-            usuarioService.registrarUsuario(registroDTO);
-            return ResponseEntity.ok("Usuario registrado correctamente");
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Error al registrar el usuario: " + e.getMessage());
-        }
+        usuarioService.registrarUsuario(registroDTO);
+        return ResponseEntity.ok("Usuario registrado correctamente");
     }
 }
