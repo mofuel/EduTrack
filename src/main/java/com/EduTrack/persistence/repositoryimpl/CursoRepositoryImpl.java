@@ -87,4 +87,9 @@ public class CursoRepositoryImpl implements CursoRepository {
     public Page<Curso> getDisponiblesParaCompra(Pageable pageable) {
         return crud.findByActivoTrueAndDisponibleParaCompraTrue(pageable);
     }
+
+    @Override
+    public Page<Curso> searchDisponiblesPorNombre(String nombre, Pageable pageable) {
+        return crud.findByNombreContainingIgnoreCaseAndActivoTrueAndDisponibleParaCompraTrue(nombre, pageable);
+    }
 }

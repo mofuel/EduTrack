@@ -35,4 +35,8 @@ public interface CursoCrudRepository extends JpaRepository<Curso, Long> {
 
     @EntityGraph(attributePaths = {"docente"})
     Page<Curso> findByActivoTrueAndDisponibleParaCompraTrue(Pageable pageable);
+
+    @EntityGraph(attributePaths = {"docente"})
+    Page<Curso> findByNombreContainingIgnoreCaseAndActivoTrueAndDisponibleParaCompraTrue(
+            String nombre, Pageable pageable);
 }

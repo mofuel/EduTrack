@@ -34,14 +34,7 @@ public class CursoController {
     @Autowired
     private UsuariosRepository usuarioRepository;
 
-    // GET: Listar todos los cursos
-    @GetMapping
-    public List<CursoDTO> obtenerCursos() {
-        return cursoService.listarCursos()
-                .stream()
-                .map(cursoMapper::toDTO)
-                .collect(Collectors.toList());
-    }
+
 
     // GET: Obtener curso por ID
     @GetMapping("/{id}")
@@ -154,6 +147,14 @@ public class CursoController {
     public ResponseEntity<Page<CursoDTO>> obtenerCursos(
             @PageableDefault(size = 10, sort = "id") Pageable pageable) {
         Page<Curso> cursos = cursoService.listarCursos(pageable);
+        return ResponseEntity.ok(cursos.map(cursoMapper::toDTO));
+    }
+
+    @GetMapping("/disponibles/buscar")
+    public ResponseEntity<Page<CursoDTO>> buscarCursosDisponiblesPorNombre(
+            @RequestParam("nombre") String nombre,
+            @PageableDefault(size = 10, sort = "id") Pageable pageable) {
+        Page<Curso> cursos = cursoService.buscarCursosDisponiblesPorNombre(nombre, pageable);
         return ResponseEntity.ok(cursos.map(cursoMapper::toDTO));
     }
 

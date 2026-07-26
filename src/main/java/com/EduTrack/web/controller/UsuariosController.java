@@ -4,7 +4,9 @@ import com.EduTrack.persistence.entity.Usuarios;
 import com.EduTrack.domain.service.UsuariosService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import java.util.List;
 
 @RestController
@@ -37,5 +39,11 @@ public class UsuariosController {
     @DeleteMapping("/eliminar/{id}")
     public void eliminarUsuario(@PathVariable Long id) {
         usuariosService.eliminar(id);
+    }
+
+    @GetMapping
+    public Page<Usuarios> obtenerUsuarios(
+            @PageableDefault(size = 10, sort = "id") Pageable pageable) {
+        return usuariosService.listarTodos(pageable);
     }
 }

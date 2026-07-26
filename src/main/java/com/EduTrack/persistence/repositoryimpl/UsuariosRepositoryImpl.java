@@ -5,7 +5,9 @@ import com.EduTrack.domain.repository.UsuariosRepository;
 import com.EduTrack.persistence.crud.UsuariosCrudRepository;
 import com.EduTrack.persistence.entity.Usuarios;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -56,5 +58,9 @@ public class UsuariosRepositoryImpl implements UsuariosRepository {
         crud.deleteById(id);
     }
 
+    @Override
+    public Page<Usuarios> getAll(Pageable pageable) {
+        return crud.findAll(pageable);
+    }
 
 }

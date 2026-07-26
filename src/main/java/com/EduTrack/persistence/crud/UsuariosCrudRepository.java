@@ -2,12 +2,13 @@ package com.EduTrack.persistence.crud;
 
 import com.EduTrack.persistence.entity.Usuarios;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.CrudRepository;
+
 
 import java.util.List;
 
-public interface UsuariosCrudRepository extends CrudRepository<Usuarios, Long> {
+public interface UsuariosCrudRepository  extends JpaRepository<Usuarios, Long> {
 
     Usuarios findByEmail(String email);
 

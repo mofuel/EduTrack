@@ -7,7 +7,8 @@ import com.EduTrack.persistence.mapper.RegistroMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import java.util.List;
 import java.util.Optional;
 
@@ -86,5 +87,9 @@ public class UsuariosService {
 
     public boolean existeTelefono(String telefono) {
         return usuariosRepository.getByTelefono(telefono).isPresent();
+    }
+
+    public Page<Usuarios> listarTodos(Pageable pageable) {
+        return usuariosRepository.getAll(pageable);
     }
 }

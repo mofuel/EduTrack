@@ -100,4 +100,9 @@ public class CursoService {
     public Page<Curso> listarCursosDisponiblesParaCompra(Pageable pageable) {
         return cursoRepository.getDisponiblesParaCompra(pageable);
     }
+
+    @Transactional(readOnly = true)
+    public Page<Curso> buscarCursosDisponiblesPorNombre(String nombre, Pageable pageable) {
+        return cursoRepository.searchDisponiblesPorNombre(nombre, pageable);
+    }
 }
