@@ -1,38 +1,49 @@
 package com.EduTrack.web.controller;
 
 import com.EduTrack.domain.dto.ResenaDTO;
+import com.EduTrack.domain.repository.UsuariosRepository;
 import com.EduTrack.domain.service.ResenaService;
-import jakarta.validation.Valid;
-import lombok.RequiredArgsConstructor;
+import com.EduTrack.persistence.entity.Usuarios;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/resenas")
-@RequiredArgsConstructor
-@CrossOrigin(origins = "http://localhost:5173")
 public class ResenaController {
 
-    private final ResenaService service;
+    @Autowired
+    private ResenaService resenaService;
 
-    @PostMapping("/{idCurso}")
-    public ResponseEntity<Void> guardar(@PathVariable Long idCurso, @Valid @RequestBody ResenaDTO dto, Authentication authentication) {
-        String emailUsuario = authentication.getName();
-        service.guardarPorEmail(dto, idCurso, emailUsuario);
-        return ResponseEntity.ok().build();
+    @Autowired
+    private UsuariosRepository usuarioRepository;
+
+    @PostMapping
+    public ResponseEntity<?> crearResena(@RequestBody ResenaDTO dto) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String email = auth.getName();
+
+        Optional<Usuarios> usuario = usuarioRepository.getByEmail(email);
+        if (usuario.isEmpty()) {
+            return ResponseEntity.badRequest().body("Usuario no encontrado");
+        }
+
+        ResenaDTO creada = resenaService.crearResena(dto, usuario.get().getId());
+        return ResponseEntity.ok(creada);
+    }
+
+    @GetMapping("/curso/{cursoId}")
+    public ResponseEntity<List<ResenaDTO>> listarPorCurso(@PathVariable Long cursoId) {
+        return ResponseEntity.ok(resenaService.listarPorCurso(cursoId));
     }
 
     @GetMapping
-    public ResponseEntity<List<ResenaDTO>> listar() {
-        return ResponseEntity.ok(service.listar());
+    public ResponseEntity<List<ResenaDTO>> listarTodas() {
+        return ResponseEntity.ok(resenaService.listarTodas());
     }
-
-    @GetMapping("/curso/{idCurso}")
-    public ResponseEntity<List<ResenaDTO>> listarPorCurso(@PathVariable Long idCurso) {
-        return ResponseEntity.ok(service.listarPorCurso(idCurso));
-    }
-
-
 }

@@ -4,6 +4,7 @@ public class ModuloDTO {
     private Long id;
     private String titulo;
     private String descripcion;
+    private Integer orden;
     private Long cursoId;
 
     public Long getId() {
@@ -29,6 +30,10 @@ public class ModuloDTO {
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
+
+    public Integer getOrden() {return orden;}
+
+    public void setOrden(Integer orden) {this.orden = orden;}
 
     public Long getCursoId() {
         return cursoId;

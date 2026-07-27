@@ -8,6 +8,8 @@ import io.jsonwebtoken.security.Keys;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import javax.crypto.SecretKey;
+import org.springframework.beans.factory.annotation.Value;
+import jakarta.annotation.PostConstruct;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -16,12 +18,20 @@ import java.util.Map;
 @Component
 public class JwtUtil {
 
-    private final SecretKey SECRET_KEY = Keys.hmacShaKeyFor("secretoEduTrack12345678901234567890".getBytes());
+    private SecretKey SECRET_KEY;
 
-    // 🔄 Nuevo metodo para generar token con claims personalizados
+    @Value("${jwt.secret}")
+    private String jwtSecret;
+
+    @PostConstruct
+    public void init() {
+        this.SECRET_KEY = Keys.hmacShaKeyFor(jwtSecret.getBytes());
+    }
+
+    // Nuevo metodo para generar token con claims personalizados
     public String generateToken(UserDetails userDetails, String userId) {
         Map<String, Object> claims = new HashMap<>();
-        claims.put("userId", userId);  // 👈 Añadimos el ID del usuario
+        claims.put("userId", userId);
 
         String rol = userDetails.getAuthorities().stream()
                 .findFirst()
@@ -63,7 +73,6 @@ public class JwtUtil {
             return username.equals(userDetails.getUsername()) && expiration.after(new Date());
 
         } catch (JwtException | IllegalArgumentException e) {
-            System.out.println("❌ Token inválido: " + e.getMessage());
             return false;
         }
     }

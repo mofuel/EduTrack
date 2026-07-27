@@ -1,25 +1,20 @@
 package com.EduTrack.domain.dto;
 
+import com.EduTrack.persistence.entity.RolUsuario;
 import jakarta.validation.constraints.*;
 
 public class RegistroDTO {
 
     private String nombre;
-
     private String apellido;
-
     private String dni;
-
     @Email
     private String email;
-
     private String telefono;
-
-    private String rol;
-
-    @Size(min = 2)
+    private RolUsuario rol;
+    @NotBlank
+    @Size(min = 8, message = "La contraseña debe tener al menos 8 caracteres")
     private String password;
-
     private String confirmPassword;
 
 
@@ -64,13 +59,9 @@ public class RegistroDTO {
         this.telefono = telefono;
     }
 
-    public String getRol() {
-        return rol;
-    }
+    public RolUsuario getRol() {return rol;}
 
-    public void setRol(String rol) {
-        this.rol = rol;
-    }
+    public void setRol(RolUsuario rol) {this.rol = rol;}
 
     public @Size(min = 2) String getPassword() {
         return password;

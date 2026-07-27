@@ -4,7 +4,7 @@ import com.EduTrack.domain.dto.ModuloConContenidoDTO;
 import com.EduTrack.domain.dto.ModuloDTO;
 import com.EduTrack.domain.repository.CursoRepository;
 import com.EduTrack.domain.service.ModuloService;
-import com.EduTrack.persistance.entity.Modulo;
+import com.EduTrack.persistence.entity.Modulo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

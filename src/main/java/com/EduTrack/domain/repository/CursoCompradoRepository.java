@@ -1,6 +1,6 @@
 package com.EduTrack.domain.repository;
 
-import com.EduTrack.persistance.entity.CursoComprado;
+import com.EduTrack.persistence.entity.CursoComprado;
 
 import java.util.List;
 import java.util.Optional;
@@ -8,9 +8,9 @@ import java.util.Optional;
 
 public interface CursoCompradoRepository {
 
-    List<CursoComprado> findByUsuarioId(String usuarioId);
+    List<CursoComprado> findByUsuarioId(Long usuarioId);
 
-    boolean existeCompra(String usuarioId, Long cursoId);
+    boolean existeCompra(Long usuarioId, Long cursoId);
 
     CursoComprado save(CursoComprado cursoComprado);
 

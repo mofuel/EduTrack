@@ -7,6 +7,7 @@ public class ContenidoDTO {
     private String titulo;
     private String url;
     private Long moduloId;
+    private Integer orden;
 
     public Long getId() {
         return id;
@@ -47,4 +48,8 @@ public class ContenidoDTO {
     public void setModuloId(Long moduloId) {
         this.moduloId = moduloId;
     }
+
+    public Integer getOrden() {return orden;}
+
+    public void setOrden(Integer orden) {this.orden = orden;}
 }

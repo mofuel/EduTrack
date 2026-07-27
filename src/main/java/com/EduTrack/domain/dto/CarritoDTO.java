@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 
 public class CarritoDTO {
     private Long id;
-    private String usuarioId;
+    private Long usuarioId;
     private Long cursoId;
     private String nombreCurso;
     private Double precio;
@@ -18,9 +18,9 @@ public class CarritoDTO {
 
     public void setId(Long id) {this.id = id;}
 
-    public String getUsuarioId() {return usuarioId;}
+    public Long getUsuarioId() {return usuarioId;}
 
-    public void setUsuarioId(String usuarioId) {this.usuarioId = usuarioId;}
+    public void setUsuarioId(Long usuarioId) {this.usuarioId = usuarioId;}
 
     public Long getCursoId() {return cursoId;}
 

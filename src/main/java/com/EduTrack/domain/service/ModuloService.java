@@ -1,16 +1,12 @@
 package com.EduTrack.domain.service;
 
-import com.EduTrack.domain.dto.ContenidoDTO;
 import com.EduTrack.domain.dto.ModuloConContenidoDTO;
 import com.EduTrack.domain.dto.ModuloDTO;
-import com.EduTrack.domain.repository.ContenidoRepository;
 import com.EduTrack.domain.repository.CursoRepository;
 import com.EduTrack.domain.repository.ModuloRepository;
-import com.EduTrack.persistance.entity.Contenido;
-import com.EduTrack.persistance.entity.Curso;
-import com.EduTrack.persistance.entity.Modulo;
-import com.EduTrack.persistance.mapper.ContenidoMapper;
-import com.EduTrack.persistance.mapper.ModuloMapper;
+import com.EduTrack.persistence.entity.Curso;
+import com.EduTrack.persistence.entity.Modulo;
+import com.EduTrack.persistence.mapper.ModuloMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -64,6 +60,7 @@ public class ModuloService {
         modulo.setTitulo(dto.getTitulo());
         modulo.setDescripcion(dto.getDescripcion());
         modulo.setCurso(curso);
+        modulo.setOrden(dto.getOrden());
 
         return moduloRepository.save(modulo);
     }
@@ -91,6 +88,7 @@ public class ModuloService {
         modulo.setTitulo(dto.getTitulo());
         modulo.setDescripcion(dto.getDescripcion());
         modulo.setCurso(curso);
+        modulo.setOrden(dto.getOrden());
 
         return moduloRepository.save(modulo);
     }

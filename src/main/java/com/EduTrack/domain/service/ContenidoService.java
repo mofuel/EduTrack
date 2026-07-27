@@ -2,9 +2,9 @@ package com.EduTrack.domain.service;
 
 import com.EduTrack.domain.dto.ContenidoDTO;
 import com.EduTrack.domain.repository.ContenidoRepository;
-import com.EduTrack.persistance.entity.Contenido;
-import com.EduTrack.persistance.entity.Modulo;
-import com.EduTrack.persistance.mapper.ContenidoMapper;
+import com.EduTrack.persistence.entity.Contenido;
+import com.EduTrack.persistence.entity.Modulo;
+import com.EduTrack.persistence.mapper.ContenidoMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -40,6 +40,7 @@ public class ContenidoService {
 
         Contenido contenido = contenidoMapper.toEntity(dto);
         contenido.setModulo(modulo); // Asignación manual como en el mapper
+        contenido.setOrden(dto.getOrden());
 
         Contenido guardado = contenidoRepository.save(contenido);
         return contenidoMapper.toDTO(guardado);

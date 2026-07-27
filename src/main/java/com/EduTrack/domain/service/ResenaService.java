@@ -1,30 +1,37 @@
 package com.EduTrack.domain.service;
 
 import com.EduTrack.domain.dto.ResenaDTO;
+import com.EduTrack.domain.repository.CursoCompradoRepository;
 import com.EduTrack.domain.repository.IResenaRepository;
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 
 @Service
-@RequiredArgsConstructor
 public class ResenaService {
 
-    private final IResenaRepository repository;
+    @Autowired
+    private IResenaRepository resenaRepository;
 
-    public void guardar(ResenaDTO dto, Long idCurso, String username) {
-        repository.guardar(dto, idCurso, username);
+    @Autowired
+    private CursoCompradoRepository cursoCompradoRepository;
+
+    public ResenaDTO crearResena(ResenaDTO dto, Long usuarioId) {
+        if (!cursoCompradoRepository.existeCompra(usuarioId, dto.getCursoId())) {
+            throw new IllegalArgumentException("No puedes reseñar un curso que no has comprado");
+        }
+        if (dto.getEstrellas() < 1 || dto.getEstrellas() > 5) {
+            throw new IllegalArgumentException("Las estrellas deben estar entre 1 y 5");
+        }
+        return resenaRepository.guardar(dto, dto.getCursoId(), usuarioId);
     }
 
-    public void guardarPorEmail(ResenaDTO dto, Long idCurso, String emailUsuario) {
-        repository.guardarPorEmail(dto, idCurso, emailUsuario);
+    public List<ResenaDTO> listarPorCurso(Long cursoId) {
+        return resenaRepository.listarPorCurso(cursoId);
     }
 
-    public List<ResenaDTO> listar() {
-        return repository.listar();
-    }
-
-    public List<ResenaDTO> listarPorCurso(Long idCurso) {
-        return repository.listarPorCurso(idCurso);
+    public List<ResenaDTO> listarTodas() {
+        return resenaRepository.listar();
     }
 }

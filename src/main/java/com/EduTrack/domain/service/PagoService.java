@@ -2,11 +2,12 @@ package com.EduTrack.domain.service;
 
 import com.EduTrack.domain.dto.PagoDTO;
 import com.EduTrack.domain.repository.*;
-import com.EduTrack.persistance.entity.Curso;
-import com.EduTrack.persistance.entity.CursoComprado;
-import com.EduTrack.persistance.entity.Pago;
-import com.EduTrack.persistance.entity.Usuarios;
-import com.EduTrack.persistance.mapper.PagoMapper;
+import com.EduTrack.persistence.entity.Curso;
+import com.EduTrack.persistence.entity.CursoComprado;
+import com.EduTrack.persistence.entity.Pago;
+import com.EduTrack.persistence.entity.Usuarios;
+import com.EduTrack.persistence.entity.EstadoPago;
+import com.EduTrack.persistence.mapper.PagoMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -36,6 +37,9 @@ public class PagoService {
     @Autowired
     private PagoMapper pagoMapper;
 
+    @Autowired
+    private EmailService emailService;
+
     @Transactional
     public Optional<PagoDTO> registrarPago(PagoDTO dto) {
         Optional<Usuarios> usuarioOpt = usuariosRepository.getById(dto.getUsuarioId());
@@ -45,25 +49,21 @@ public class PagoService {
             return Optional.empty();
         }
 
-        // Evita pagos duplicados
         if (pagoRepository.existePago(dto.getUsuarioId(), dto.getCursoId())) {
             return Optional.empty();
         }
 
-        // 1. Guardar el pago
         Pago pago = new Pago();
         pago.setUsuario(usuarioOpt.get());
         pago.setCurso(cursoOpt.get());
         pago.setMetodoPago(dto.getMetodoPago());
         pago.setReferenciaPago(dto.getReferenciaPago());
         pago.setFechaPago(LocalDateTime.now());
-
+        pago.setEstado(EstadoPago.COMPLETADO);
         Pago guardado = pagoRepository.save(pago);
 
-        // 2. Eliminar del carrito
         carritoRepository.deleteByUsuarioIdAndCursoId(dto.getUsuarioId(), dto.getCursoId());
 
-        // 3. Registrar curso comprado (si no fue comprado aún)
         if (!cursoCompradoRepository.existeCompra(dto.getUsuarioId(), dto.getCursoId())) {
             CursoComprado compra = new CursoComprado();
             compra.setUsuario(usuarioOpt.get());
@@ -72,15 +72,23 @@ public class PagoService {
             cursoCompradoRepository.save(compra);
         }
 
+        String emailUsuario = usuarioOpt.get().getEmail();
+        String nombreCurso = cursoOpt.get().getNombre();
+        String mensaje = "Hola " + usuarioOpt.get().getNombre() + ",\n\n"
+                + "¡Gracias por tu compra! Has adquirido el curso: " + nombreCurso + ".\n"
+                + "Ya puedes acceder al contenido desde tu panel de estudiante.\n\n"
+                + "Saludos,\nEduTrack";
+
+        emailService.enviarCorreo(emailUsuario, "Confirmación de compra - EduTrack", mensaje);
+
         return Optional.of(pagoMapper.toDTO(guardado));
     }
 
-
-    public boolean yaFuePagado(String usuarioId, Long cursoId) {
+    public boolean yaFuePagado(Long usuarioId, Long cursoId) {
         return pagoRepository.existePago(usuarioId, cursoId);
     }
 
-    public List<PagoDTO> listarPagosPorUsuario(String usuarioId) {
+    public List<PagoDTO> listarPagosPorUsuario(Long usuarioId) {
         List<Pago> pagos = pagoRepository.findByUsuarioId(usuarioId);
         return pagoMapper.toDTOList(pagos);
     }
