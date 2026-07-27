@@ -5,7 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-
+import org.springframework.dao.DataIntegrityViolationException;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
@@ -37,6 +37,18 @@ public class GlobalExceptionHandler {
                 .collect(Collectors.joining(", "));
         return ResponseEntity.badRequest()
                 .body(new ErrorResponse("Error de validación", mensaje, 400));
+    }
+
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public ResponseEntity<ErrorResponse> handleDataIntegrity(DataIntegrityViolationException ex) {
+        String mensaje = "El correo o DNI ya están registrados";
+        if (ex.getMessage() != null && ex.getMessage().contains("email")) {
+            mensaje = "El correo electrónico ya está registrado";
+        } else if (ex.getMessage() != null && ex.getMessage().contains("dni")) {
+            mensaje = "El DNI ya está registrado";
+        }
+        return ResponseEntity.status(HttpStatus.CONFLICT)
+                .body(new ErrorResponse("Error de registro", mensaje, 409));
     }
 
 
