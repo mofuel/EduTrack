@@ -6,6 +6,9 @@ import com.EduTrack.domain.service.UsuariosService;
 import com.EduTrack.persistence.entity.Usuarios;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ContentDisposition;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
@@ -37,17 +40,15 @@ public class CertificadoController {
     }
 
     @GetMapping("/generar")
-    public ResponseEntity<?> generarCertificado(
+    public ResponseEntity<byte[]> generarCertificado(
             @RequestParam Long usuarioId,
-            @RequestParam Long cursoId,
-            HttpServletResponse response) throws IOException {
+            @RequestParam Long cursoId) {
         byte[] pdfBytes = certificadoService.generarCertificado(usuarioId, cursoId);
 
-        response.setContentType("application/pdf");
-        response.setHeader("Content-Disposition", "attachment; filename=certificado.pdf");
-        response.getOutputStream().write(pdfBytes);
-        response.getOutputStream().flush();
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_PDF);
+        headers.setContentDisposition(ContentDisposition.attachment().filename("certificado.pdf").build());
 
-        return null;
+        return ResponseEntity.ok().headers(headers).body(pdfBytes);
     }
 }
