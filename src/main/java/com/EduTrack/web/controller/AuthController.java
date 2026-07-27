@@ -7,6 +7,7 @@ import com.EduTrack.persistence.entity.Token;
 import com.EduTrack.persistence.entity.Usuarios;
 import com.EduTrack.security.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -17,12 +18,12 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
-
 import java.time.LocalDateTime;
 import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.UUID;
+import com.EduTrack.config.ErrorResponse;
 
 @RestController
 @RequestMapping("/auth")
@@ -45,6 +46,12 @@ public class AuthController {
 
     @Autowired
     private JwtUtil jwtUtil;
+
+    @ExceptionHandler(AuthenticationException.class)
+    public ResponseEntity<ErrorResponse> handleAuth(AuthenticationException ex) {
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                .body(new ErrorResponse("No autorizado", ex.getMessage(), 401));
+    }
 
     @PostMapping("/recuperar")
     public ResponseEntity<?> recuperarPassword(@RequestParam String email) {

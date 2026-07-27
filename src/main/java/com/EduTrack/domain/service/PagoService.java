@@ -16,22 +16,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
-import com.EduTrack.domain.dto.PagoDTO;
-import com.EduTrack.domain.repository.*;
-import com.EduTrack.persistence.entity.Curso;
-import com.EduTrack.persistence.entity.CursoComprado;
-import com.EduTrack.persistence.entity.Pago;
-import com.EduTrack.persistence.entity.Usuarios;
-import com.EduTrack.persistence.entity.EstadoPago;
-import com.EduTrack.persistence.mapper.PagoMapper;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Optional;
-
 @Service
 public class PagoService {
 

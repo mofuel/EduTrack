@@ -73,7 +73,6 @@ public class JwtUtil {
             return username.equals(userDetails.getUsername()) && expiration.after(new Date());
 
         } catch (JwtException | IllegalArgumentException e) {
-            System.out.println("Token inválido: " + e.getMessage());
             return false;
         }
     }
