@@ -40,6 +40,7 @@ public class ContenidoService {
 
         Contenido contenido = contenidoMapper.toEntity(dto);
         contenido.setModulo(modulo); // Asignación manual como en el mapper
+        contenido.setOrden(dto.getOrden());
 
         Contenido guardado = contenidoRepository.save(contenido);
         return contenidoMapper.toDTO(guardado);

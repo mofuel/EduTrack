@@ -60,6 +60,7 @@ public class ModuloService {
         modulo.setTitulo(dto.getTitulo());
         modulo.setDescripcion(dto.getDescripcion());
         modulo.setCurso(curso);
+        modulo.setOrden(dto.getOrden());
 
         return moduloRepository.save(modulo);
     }
@@ -87,6 +88,7 @@ public class ModuloService {
         modulo.setTitulo(dto.getTitulo());
         modulo.setDescripcion(dto.getDescripcion());
         modulo.setCurso(curso);
+        modulo.setOrden(dto.getOrden());
 
         return moduloRepository.save(modulo);
     }

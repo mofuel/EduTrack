@@ -13,6 +13,7 @@ public class Contenido {
     private String tipo; // "pdf", "video", "enlace"
     private String titulo;
     private String url;
+    private Integer orden;
 
     @ManyToOne
     @JoinColumn(name = "modulo_id")
@@ -49,6 +50,10 @@ public class Contenido {
     public void setUrl(String url) {
         this.url = url;
     }
+
+    public Integer getOrden() { return orden; }
+
+    public void setOrden(Integer orden) { this.orden = orden; }
 
     public Modulo getModulo() {
         return modulo;

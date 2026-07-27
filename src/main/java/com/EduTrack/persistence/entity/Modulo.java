@@ -16,6 +16,8 @@ public class Modulo {
 
     private String descripcion;
 
+    private Integer orden;
+
     @ManyToOne
     @JoinColumn(name = "curso_id")
     private Curso curso;
@@ -47,6 +49,10 @@ public class Modulo {
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
+
+    public Integer getOrden() { return orden; }
+
+    public void setOrden(Integer orden) { this.orden = orden; }
 
     public Curso getCurso() {
         return curso;
