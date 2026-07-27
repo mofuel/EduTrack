@@ -5,8 +5,12 @@ import jakarta.validation.constraints.*;
 
 public class RegistroDTO {
 
+    @NotBlank(message = "El nombre es obligatorio")
     private String nombre;
+    @NotBlank(message = "El apellido es obligatorio")
     private String apellido;
+    @NotBlank(message = "El DNI es obligatorio")
+    @Pattern(regexp = "\\d{8}", message = "El DNI debe tener 8 dígitos")
     private String dni;
     @Email
     private String email;

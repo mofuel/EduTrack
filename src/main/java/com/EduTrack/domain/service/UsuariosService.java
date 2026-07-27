@@ -33,6 +33,17 @@ public class UsuariosService {
     }
 
     public void registrarUsuario(RegistroDTO dto) {
+        if (existeEmail(dto.getEmail())) {
+            throw new IllegalArgumentException("El correo ya está registrado");
+        }
+        if (existeDni(dto.getDni())) {
+            throw new IllegalArgumentException("El DNI ya está registrado");
+        }
+        if (existeTelefono(dto.getTelefono())) {
+            throw new IllegalArgumentException("El teléfono ya está registrado");
+        }
+
+
         Usuarios usuario = registroMapper.toUsuarioFromRegistroDTO(dto);
         usuario.setRol(dto.getRol());
 
@@ -55,6 +66,25 @@ public class UsuariosService {
 
         if (usuarioExistente.isPresent()) {
             Usuarios usuario = usuarioExistente.get();
+
+            // Si cambia el email, verificar que no lo tenga otro usuario
+            if (!usuario.getEmail().equals(usuarioActualizado.getEmail())
+                    && existeEmail(usuarioActualizado.getEmail())) {
+                throw new IllegalArgumentException("El correo ya está registrado por otro usuario");
+            }
+
+            // Si cambia el DNI, verificar que no lo tenga otro usuario
+            if (!usuario.getDni().equals(usuarioActualizado.getDni())
+                    && existeDni(usuarioActualizado.getDni())) {
+                throw new IllegalArgumentException("El DNI ya está registrado por otro usuario");
+            }
+
+            // Si cambia el teléfono, verificar que no lo tenga otro usuario
+            if (usuarioActualizado.getTelefono() != null
+                    && !usuario.getTelefono().equals(usuarioActualizado.getTelefono())
+                    && existeTelefono(usuarioActualizado.getTelefono())) {
+                throw new IllegalArgumentException("El teléfono ya está registrado por otro usuario");
+            }
 
             usuario.setNombre(usuarioActualizado.getNombre());
             usuario.setApellido(usuarioActualizado.getApellido());

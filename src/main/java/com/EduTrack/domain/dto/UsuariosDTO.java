@@ -1,14 +1,18 @@
 package com.EduTrack.domain.dto;
 
 import com.EduTrack.persistence.entity.RolUsuario;
-
+import jakarta.validation.constraints.*;
 
 public class UsuariosDTO {
     private Long id;
     private String nombre;
     private String apellido;
+    @NotBlank(message = "El DNI es obligatorio")
+    @Pattern(regexp = "\\d{8}", message = "El DNI debe tener 8 dígitos")
     private String dni;
     private String email;
+    @NotBlank(message = "El teléfono es obligatorio")
+    @Pattern(regexp = "\\d{9}", message = "El teléfono debe tener 9 dígitos")
     private String telefono;
     private RolUsuario rol;
 

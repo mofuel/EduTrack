@@ -12,10 +12,10 @@ public class Usuarios {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
-    @Column
+    @Column(nullable = false)
     String nombre;
 
-    @Column
+    @Column(nullable = false)
     String apellido;
 
     @Column(unique = true, nullable = false, length = 8)
@@ -24,7 +24,7 @@ public class Usuarios {
     @Column(unique = true, nullable = false)
     String email;
 
-    @Column
+    @Column(unique = true, nullable = false)
     String telefono;
 
     @Enumerated(EnumType.STRING)
